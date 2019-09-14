@@ -95,12 +95,6 @@ public class basicDrive extends OpMode
     public void loop() {
         Move(1);
 
-        if(gamepad1.a){
-            robot.leftBack.setPower(.5);
-        }
-
-
-
 
     }
 
