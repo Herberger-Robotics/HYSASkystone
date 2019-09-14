@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -24,6 +25,9 @@ public class HardwareClass {
         rightBack = hwMap.get(DcMotor.class, "rightBack");
         leftBack = hwMap.get(DcMotor.class, "leftBack");
         leftFront = hwMap.get(DcMotor.class,"leftFront");
+
+        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         rightBack.setPower(0);
         rightFront.setPower(0);

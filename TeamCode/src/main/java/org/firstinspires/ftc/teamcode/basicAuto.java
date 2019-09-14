@@ -22,6 +22,10 @@ public class basicAuto extends LinearOpMode {
         robot.init(hardwareMap);
         stopAndReset();
 
+        waitForStart();
+
+        encoderDrive(1, 1);
+
 
     }
 
@@ -46,8 +50,8 @@ public class basicAuto extends LinearOpMode {
 
         if(opModeIsActive())
         {
-            rightTarget = robot.rightFront.getCurrentPosition() + (int)(rotations);
-            leftTarget = robot.leftFront.getCurrentPosition() + (int)(rotations);
+            rightTarget = robot.rightFront.getCurrentPosition() + (int)(rotations) * (1440);
+            leftTarget = robot.leftFront.getCurrentPosition() + (int)(rotations) * (1440);
 
             robot.rightFront.setTargetPosition(rightTarget);
             robot.leftFront.setTargetPosition(leftTarget);
@@ -69,6 +73,15 @@ public class basicAuto extends LinearOpMode {
 
             }
 
+            robot.rightBack.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftFront.setPower(0);
+            robot.leftBack.setPower(0);
+
+            robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         }
 
