@@ -80,11 +80,19 @@ public class basicDrive extends OpMode
      */
     @Override
     public void loop() {
-
-        Move(1);
-        rightStrafe(1);
-        leftStrafe(1);
         Claw();
+        Move(1);
+        if(gamepad1.right_bumper)
+        {
+            rightStrafe(1);
+        }
+
+        if(gamepad1.left_bumper)
+        {
+            leftStrafe(1);
+        }
+
+
 
     }
 
@@ -93,19 +101,15 @@ public class basicDrive extends OpMode
     {
         if(gamepad2.left_bumper){
             robot.liftClaw.setPower(-0.5);
-        }else{
-            robot.liftClaw.setPower(0);
-        }if (gamepad2.right_bumper){
+        }
+        if (gamepad2.right_bumper){
             robot.liftClaw.setPower(0.5);
-    }       else{
-            robot.liftClaw.setPower(0);
-
     }
         if(gamepad2.a){
-            robot.claw.setPosition(100);
+            robot.claw.setPosition(0);
 
         }else if (gamepad2.b){
-            robot.claw.setPosition(0);
+            robot.claw.setPosition(360);
         }
 
 
@@ -131,18 +135,18 @@ public class basicDrive extends OpMode
 
 
     public void rightStrafe(double speed){
-        if(gamepad1.right_bumper){
+
             robot.leftFront.setPower(speed);
             robot.leftBack.setPower(-speed);
 
             robot.rightFront.setPower(-speed);
             robot.rightBack.setPower(speed);
-        }else{
+        /*else{
             robot.rightBack.setPower(0);
             robot.rightFront.setPower(0);
             robot.leftFront.setPower(0);
             robot.leftBack.setPower(0);
-        }
+        }*/
 
 
 
@@ -150,19 +154,19 @@ public class basicDrive extends OpMode
 
     }
     public void leftStrafe(double speed){
-        if(gamepad1.left_bumper){
+
             robot.leftFront.setPower(-speed);
             robot.leftBack.setPower(speed);
 
             robot.rightFront.setPower(speed);
             robot.rightBack.setPower(speed);
-        }else{
-            robot.rightBack.setPower(0);
+        /*else{
+            robot.rightBack.setPower(0); // breaks motors
             robot.rightFront.setPower(0);
             robot.leftFront.setPower(0);
             robot.leftBack.setPower(0);
 
-        }
+        }*/
 
 
     }
