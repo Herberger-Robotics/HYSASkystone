@@ -16,7 +16,7 @@ public class TrialDrive extends OpMode
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     TrialHardware robot = new TrialHardware();
-    boolean z;
+    boolean z = false;
 
 
     /*
