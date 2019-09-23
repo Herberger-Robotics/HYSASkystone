@@ -7,12 +7,12 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
 public class TrialHardware {
-    public DcMotor rightFrontDRIVE = null;
-    public DcMotor rightRearDRIVE = null;
-    public DcMotor leftFrontDRIVE = null;
-    public DcMotor leftRearDRIVE = null;
-    public DcMotor armActuator = null;
-    public Servo clawDropper = null;
+    public DcMotor rightFront = null;
+    public DcMotor rightRear = null;
+    public DcMotor leftFront = null;
+    public DcMotor leftRear = null;
+    public DcMotor liftClaw = null;
+    public Servo claw = null;
 
     HardwareMap hwMap = null;
 
@@ -24,23 +24,23 @@ public class TrialHardware {
     public void init(HardwareMap ahwMap){
         hwMap = ahwMap;
 
-        rightFrontDRIVE = hwMap.get(DcMotor.class, "rightFront");
-        rightRearDRIVE = hwMap.get(DcMotor.class, "rightRear");
-        leftFrontDRIVE = hwMap.get(DcMotor.class, "leftFront");
-        leftRearDRIVE = hwMap.get(DcMotor.class, "leftRear");
-        armActuator = hwMap.get(DcMotor.class, "armActuator");
-        clawDropper = hwMap.get(Servo.class, "clawDropper");
+        rightFront = hwMap.get(DcMotor.class, "rightFront");
+        rightRear = hwMap.get(DcMotor.class, "rightRear");
+        leftFront = hwMap.get(DcMotor.class, "leftFront");
+        leftRear = hwMap.get(DcMotor.class, "leftRear");
+        liftClaw= hwMap.get(DcMotor.class, "armActuator");
+        claw = hwMap.get(Servo.class, "clawDropper");
 
-        rightFrontDRIVE.setPower(0);
-        rightRearDRIVE.setPower(0);
-        leftFrontDRIVE.setPower(0);
-        leftRearDRIVE.setPower(0);
-        armActuator.setPower(0);
+        rightFront.setPower(0);
+        rightRear.setPower(0);
+        leftFront.setPower(0);
+        leftRear.setPower(0);
+        liftClaw.setPower(0);
 
-        rightFrontDRIVE.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightRearDRIVE.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftFrontDRIVE.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRearDRIVE.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
 

@@ -81,25 +81,25 @@ public class TrialDrive extends OpMode
     public void claw(){
 
         if(gamepad2.right_bumper){
-            robot.armActuator.setPower(0.5);
+            robot.liftClaw.setPower(0.5);
 
 
         }else{
-            robot.armActuator.setPower(0);
+            robot.liftClaw.setPower(0);
 
 
 
         } if(gamepad2.left_bumper){
-            robot.armActuator.setPower(-0.5);
+            robot.liftClaw.setPower(-0.5);
 
         }
         if(gamepad2.a){
 
-            robot.clawDropper.setPosition(180);
+            robot.claw.setPosition(180);
 
             if(gamepad2.x){
 
-                robot.clawDropper.setPosition(360);
+                robot.claw.setPosition(360);
 
             }
         }
@@ -116,11 +116,11 @@ public class TrialDrive extends OpMode
         x = gamepad1.left_stick_x * speed;
         y = gamepad1.left_stick_y * speed;
 
-        robot.leftRearDRIVE.setPower(y+x);
-        robot.leftFrontDRIVE.setPower(y+x);
+        robot.leftRear.setPower(y+x);
+        robot.leftFront.setPower(y+x);
 
-        robot.rightRearDRIVE.setPower(y-x);
-        robot.rightFrontDRIVE.setPower(y-x);
+        robot.rightRear.setPower(y-x);
+        robot.rightFront.setPower(y-x);
 
 
     }
