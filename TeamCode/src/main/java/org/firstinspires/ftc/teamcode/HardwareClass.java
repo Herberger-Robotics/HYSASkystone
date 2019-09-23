@@ -34,6 +34,7 @@ public class HardwareClass {
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
+
         rightBack.setPower(0);
         rightFront.setPower(0);
         leftBack.setPower(0);
@@ -41,10 +42,10 @@ public class HardwareClass {
         liftClaw.setPower(0);
 
 
-        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+       /* rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);*/
 
     }
 

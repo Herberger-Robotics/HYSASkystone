@@ -84,12 +84,12 @@ public class basicDrive extends OpMode
         Move(1);
         if(gamepad1.right_bumper)
         {
-            rightStrafe(1);
+            rightStrafe();
         }
 
         if(gamepad1.left_bumper)
         {
-            leftStrafe(1);
+            leftStrafe();
         }
 
 
@@ -101,10 +101,13 @@ public class basicDrive extends OpMode
     {
         if(gamepad2.left_bumper){
             robot.liftClaw.setPower(-0.5);
-        }
+        }else
         if (gamepad2.right_bumper){
             robot.liftClaw.setPower(0.5);
-    }
+    }else{
+            robot.liftClaw.setPower(0);
+
+        }
         if(gamepad2.a){
             robot.claw.setPosition(0);
 
@@ -125,22 +128,22 @@ public class basicDrive extends OpMode
         x = speed * gamepad1.left_stick_x;
         y = speed * gamepad1.left_stick_y;
 
-        robot.leftFront.setPower(y+x);
-        robot.leftBack.setPower(y+x);
+        robot.leftFront.setPower(y-x);
+        robot.leftBack.setPower(y-x);
 
-        robot.rightFront.setPower(y-x);
-        robot.rightBack.setPower(y-x);
+        robot.rightFront.setPower(y+x);
+        robot.rightBack.setPower(y+x);
 
     }
 
 
-    public void rightStrafe(double speed){
+    public void rightStrafe(){
 
-            robot.leftFront.setPower(speed);
-            robot.leftBack.setPower(-speed);
+            robot.leftFront.setPower(1);
+            robot.leftBack.setPower(-1);
 
-            robot.rightFront.setPower(-speed);
-            robot.rightBack.setPower(speed);
+            robot.rightFront.setPower(-1);
+            robot.rightBack.setPower(1);
         /*else{
             robot.rightBack.setPower(0);
             robot.rightFront.setPower(0);
@@ -153,13 +156,13 @@ public class basicDrive extends OpMode
 
 
     }
-    public void leftStrafe(double speed){
+    public void leftStrafe(){
 
-            robot.leftFront.setPower(-speed);
-            robot.leftBack.setPower(speed);
+            robot.leftFront.setPower(-1);
+            robot.leftBack.setPower(1);
 
-            robot.rightFront.setPower(speed);
-            robot.rightBack.setPower(speed);
+            robot.rightFront.setPower(1);
+            robot.rightBack.setPower(-1);
         /*else{
             robot.rightBack.setPower(0); // breaks motors
             robot.rightFront.setPower(0);
@@ -182,6 +185,7 @@ public class basicDrive extends OpMode
         robot.rightFront.setPower(0);
         robot.leftBack.setPower(0);
         robot.leftFront.setPower(0);
+        robot.liftClaw.setPower(0);
 
 
     }

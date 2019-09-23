@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
@@ -11,7 +10,6 @@ public class basicAuto extends LinearOpMode {
 
     HardwareClass robot = new HardwareClass();
     private ElapsedTime runtime = new ElapsedTime();
-
 
 
 
@@ -25,6 +23,7 @@ public class basicAuto extends LinearOpMode {
         waitForStart();
 
         encoderDrive(1, 1);
+
 
 
     }
@@ -88,6 +87,8 @@ public class basicAuto extends LinearOpMode {
 
 
     }
+
+
 
 
 
