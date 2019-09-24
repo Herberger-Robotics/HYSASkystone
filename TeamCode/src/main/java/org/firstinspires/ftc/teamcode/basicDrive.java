@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -44,6 +45,7 @@ public class basicDrive extends OpMode
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     HardwareClass robot = new HardwareClass();
+    boolean f = true;
 
 
 
@@ -81,7 +83,32 @@ public class basicDrive extends OpMode
     @Override
     public void loop() {
         Claw();
+
+        if(gamepad1.a)
+        {
+            f = false;
+        }
+
+        if(gamepad1.b)
+        {
+
+            f = true;
+        }
+
+
+
+        if(f == true)
+        {
+            back2Forward();
+        }else if (f == false){
+            switchDirection();
+        }
+
+
+
         Move(1);
+
+
         if(gamepad1.right_bumper)
         {
             rightStrafe();
@@ -133,6 +160,26 @@ public class basicDrive extends OpMode
 
         robot.rightFront.setPower(y+x);
         robot.rightBack.setPower(y+x);
+
+    }
+
+
+    public void switchDirection()
+        {
+            robot.rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+            robot.rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
+            robot.leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
+        }
+
+    public void back2Forward()
+    {
+        robot.rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot. leftBack.setDirection(DcMotorSimple.Direction.FORWARD);
 
     }
 
