@@ -77,7 +77,8 @@ public class vuforiaTest extends LinearOpMode {
      * and paste it in to your code on the next line, between the double quotes.
      */
     private static final String VUFORIA_KEY =
-            "AQIDSAj/////AAABmYfs/t0ZqEH6v2/OT0KfwTkrCHod3o46VARk44Vp4NXpfckVWvUjwIJujr758gSjJ4ga+nqUJeuZM4xUS3rpKIBBDOH2Jze7m+HDPpRSF/BESF9hclD2zJsuB3KY6whSUcbsWwfFEzIsdS1LY09R6ploM4gxvAmbANO8jjp8Ppu/v1jASlZfNpnoVR4iMWgfdhh/e/QK/pz5l5wdmZwooJwBXfd4pHgN/7xEuvOX4WqsOEW+Ab07l1ybrUyp6C8zhpWsyxtuslXHks7ZOjeFiwMpMtbGkr5lUWghypPS+vQWM/IVJ+N0bO3gPIzBiZhOh4g4K8D++ASKV45Ca37GVnrujKchi1PyWB9CB5++TMeK";
+            "AdWlmRL/////AAABmR6HEi8caUNulL+O+TccAf4rW7c2xMm9TodMQFWHmHokXLNO9htpsD1aE9lpgtjkf6/Z/eJQQ9WuVC6g4f4I1Uo0+R9b1gJX9F8X9VIOFX7fIcfN6vRaGGoV/YuJ4lBm+eOu969IbDZymrgIwe1fukuo73VGB+PdWMYgVwyt612sqzaeUopvLs19mh1WlsKupNGdC4M3lbgcF/Ty6IHfgIbZJPCYwcegtZ50pEkcmjh6WIq3lyzq/3sNgsKcF4TNIQtyBeUmeDZk9mSBlkliRPvx5cHTzUjLvB3zLVVvGbRgNS9TSAZ15a/+Fa5zVPIVyoMdxgNtzzY7EKAWNBG5CqcthGJqF3rR2fs9ImWCvHrJ";
+
 
     // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
     // We will define some constants and conversions here
