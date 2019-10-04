@@ -12,7 +12,8 @@ public class HardwareClass {
     public DcMotor leftFront = null;
     public DcMotor leftBack = null;
     public DcMotor liftClaw = null;
-    public Servo claw = null;
+    public DcMotor claw = null;
+    //public Servo claw = null;
 
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
@@ -29,7 +30,8 @@ public class HardwareClass {
         leftBack = hwMap.get(DcMotor.class, "leftBack");
         leftFront = hwMap.get(DcMotor.class,"leftFront");
         liftClaw = hwMap.get(DcMotor.class, "liftClaw");
-        claw = hwMap.get(Servo.class, "claw");
+        claw =hwMap.get(DcMotor.class,"claw");
+        //claw = hwMap.get(Servo.class, "claw");
 
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
