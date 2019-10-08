@@ -1,25 +1,21 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
 
-public class TrialHardware {
+public class JavelinasHardware {
     public DcMotor rightFront = null;
     public DcMotor rightRear = null;
     public DcMotor leftFront = null;
     public DcMotor leftRear = null;
-    public DcMotor liftClaw = null;
-    public Servo claw = null;
+    public DcMotor rotor1 = null;
+    public DcMotor rotor2 = null;
 
     HardwareMap hwMap = null;
-
-    public TrialHardware(){
-
-
-    }
 
     public void init(HardwareMap ahwMap){
         hwMap = ahwMap;
@@ -28,19 +24,22 @@ public class TrialHardware {
         rightRear = hwMap.get(DcMotor.class, "rightRear");
         leftFront = hwMap.get(DcMotor.class, "leftFront");
         leftRear = hwMap.get(DcMotor.class, "leftRear");
-        liftClaw= hwMap.get(DcMotor.class, "armActuator");
-        claw = hwMap.get(Servo.class, "clawDropper");
+        rotor1  = hwMap.get(DcMotor.class, "Rotor1");
+        rotor2 = hwMap.get(DcMotor.class, "Rotor2");
+
+        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightRear.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftRear.setDirection(DcMotorSimple.Direction.FORWARD);
+        rotor1.setDirection(DcMotorSimple.Direction.FORWARD);
+        rotor2.setDirection(DcMotorSimple.Direction.FORWARD);
 
         rightFront.setPower(0);
         rightRear.setPower(0);
         leftFront.setPower(0);
         leftRear.setPower(0);
-        liftClaw.setPower(0);
-
-        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rotor1.setPower(0);
+        rotor2.setPower(0);
     }
 
 
