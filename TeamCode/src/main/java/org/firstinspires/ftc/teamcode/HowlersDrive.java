@@ -37,14 +37,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 
-@TeleOp(name="BasicDrive", group="Iterative Opmode")
+@TeleOp(name="howlersDrive", group="Iterative Opmode")
 
-public class basicDrive extends OpMode
+public class HowlersDrive extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private boolean intakeOn = false;
-    HardwareClass robot = new HardwareClass();
+    HowlersHardware robot = new HowlersHardware();
 
 
 
@@ -105,7 +105,7 @@ public class basicDrive extends OpMode
         }
         if (gamepad2.right_bumper){
             //robot.liftClaw.setPower(0.5);
-    }
+        }
         if(gamepad2.a){
             if(intakeOn == false) {
                 robot.leftIntake.setPower(1);
@@ -142,11 +142,11 @@ public class basicDrive extends OpMode
 
     public void rightStrafe(double speed){
 
-            robot.leftFront.setPower(speed);
-            robot.leftBack.setPower(-speed);
+        robot.leftFront.setPower(speed);
+        robot.leftBack.setPower(-speed);
 
-            robot.rightFront.setPower(-speed);
-            robot.rightBack.setPower(speed);
+        robot.rightFront.setPower(-speed);
+        robot.rightBack.setPower(speed);
         /*else{
             robot.rightBack.setPower(0);
             robot.rightFront.setPower(0);
@@ -161,11 +161,11 @@ public class basicDrive extends OpMode
     }
     public void leftStrafe(double speed){
 
-            robot.leftFront.setPower(-speed);
-            robot.leftBack.setPower(speed);
+        robot.leftFront.setPower(-speed);
+        robot.leftBack.setPower(speed);
 
-            robot.rightFront.setPower(speed);
-            robot.rightBack.setPower(speed);
+        robot.rightFront.setPower(speed);
+        robot.rightBack.setPower(speed);
         /*else{
             robot.rightBack.setPower(0); // breaks motors
             robot.rightFront.setPower(0);

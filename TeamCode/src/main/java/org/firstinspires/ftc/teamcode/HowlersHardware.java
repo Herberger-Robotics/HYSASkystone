@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class HardwareClass {
+public class HowlersHardware {
     public DcMotor rightFront = null;
     public DcMotor rightBack = null;
     public DcMotor leftFront = null;
@@ -18,7 +18,7 @@ public class HardwareClass {
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
 
-    public HardwareClass(){
+    public HowlersHardware(){
 
     }
 
