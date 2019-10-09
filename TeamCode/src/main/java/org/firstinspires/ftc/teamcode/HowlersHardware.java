@@ -11,11 +11,10 @@ public class HowlersHardware {
     public DcMotor rightBack = null;
     public DcMotor leftFront = null;
     public DcMotor leftBack = null;
-    public DcMotor leftIntake = null;
-    public DcMotor rightIntake = null;
-    public Servo claw = null;
+    public DcMotor intakeLift = null;
+    public Servo intakeClaw = null;
 
-    HardwareMap hwMap           =  null;
+    HardwareMap hwMap = null;
     private ElapsedTime period  = new ElapsedTime();
 
     public HowlersHardware(){
@@ -29,8 +28,8 @@ public class HowlersHardware {
         rightBack = hwMap.get(DcMotor.class, "rightBack");
         leftBack = hwMap.get(DcMotor.class, "leftBack");
         leftFront = hwMap.get(DcMotor.class,"leftFront");
-        leftIntake = hwMap.get(DcMotor.class, "leftIntake");
-        rightIntake = hwMap.get(DcMotor.class, "rightIntake");
+        intakeClaw = hwMap.get(Servo.class, "intakeClaw");
+        intakeLift = hwMap.get(DcMotor.class, "intakeLift");
 
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -39,9 +38,8 @@ public class HowlersHardware {
         rightFront.setPower(0);
         leftBack.setPower(0);
         leftFront.setPower(0);
-        leftIntake.setPower(0);
-        rightIntake.setPower(0);
-
+        intakeLift.setPower(0);
+        intakeClaw.setPosition(0);
 
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
