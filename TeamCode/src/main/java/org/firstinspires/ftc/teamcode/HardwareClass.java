@@ -11,8 +11,7 @@ public class HardwareClass {
     public DcMotor rightBack = null;
     public DcMotor leftFront = null;
     public DcMotor leftBack = null;
-    public DcMotor leftIntake = null;
-    public DcMotor rightIntake = null;
+    public DcMotor liftClaw = null;
     public Servo claw = null;
 
     HardwareMap hwMap           =  null;
@@ -29,8 +28,8 @@ public class HardwareClass {
         rightBack = hwMap.get(DcMotor.class, "rightBack");
         leftBack = hwMap.get(DcMotor.class, "leftBack");
         leftFront = hwMap.get(DcMotor.class,"leftFront");
-        leftIntake = hwMap.get(DcMotor.class, "leftIntake");
-        rightIntake = hwMap.get(DcMotor.class, "rightIntake");
+        liftClaw = hwMap.get(DcMotor.class, "liftClaw");
+        claw = hwMap.get(Servo.class, "claw");
 
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -39,8 +38,7 @@ public class HardwareClass {
         rightFront.setPower(0);
         leftBack.setPower(0);
         leftFront.setPower(0);
-        leftIntake.setPower(0);
-        rightIntake.setPower(0);
+        liftClaw.setPower(0);
 
 
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

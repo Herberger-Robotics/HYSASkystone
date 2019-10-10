@@ -43,7 +43,6 @@ public class HowlersDrive extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private boolean intakeOn = false;
     HowlersHardware robot = new HowlersHardware();
 
 
@@ -102,10 +101,13 @@ public class HowlersDrive extends OpMode
     {
         if(gamepad2.left_bumper){
             robot.intakeLift.setPower(-0.5);
+        } else if (gamepad2.right_bumper){
+        robot.intakeLift.setPower(0.5);
+        }  else {
+        robot.intakeLift.setPower(0);
         }
-        if (gamepad2.right_bumper){
-            robot.intakeLift.setPower(0.5);
-        }
+
+
         if(gamepad2.a){
             robot.intakeClaw.setPosition(360);
         }else if(gamepad2.b) {

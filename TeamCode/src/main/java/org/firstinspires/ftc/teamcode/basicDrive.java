@@ -43,7 +43,6 @@ public class basicDrive extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private boolean intakeOn = false;
     HardwareClass robot = new HardwareClass();
 
 
@@ -101,21 +100,16 @@ public class basicDrive extends OpMode
     public void Claw()
     {
         if(gamepad2.left_bumper){
-            //robot.liftClaw.setPower(-0.5);
+            robot.liftClaw.setPower(-0.5);
         }
         if (gamepad2.right_bumper){
-            //robot.liftClaw.setPower(0.5);
+            robot.liftClaw.setPower(0.5);
     }
         if(gamepad2.a){
-            if(intakeOn == false) {
-                robot.leftIntake.setPower(1);
-                robot.rightIntake.setPower(1);
-                intakeOn = true;
-            }else {
-                robot.leftIntake.setPower(0);
-                robot.rightIntake.setPower(0);
-                intakeOn = false;
-            }
+            robot.claw.setPosition(0);
+
+        }else if (gamepad2.b){
+            robot.claw.setPosition(360);
         }
 
 
