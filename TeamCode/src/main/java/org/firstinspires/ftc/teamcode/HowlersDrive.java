@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 
-@TeleOp(name="howlersDrive", group="Iterative Opmode")
+@TeleOp(name="HowlersDrive", group="Iterative Opmode")
 
 public class HowlersDrive extends OpMode
 {
@@ -100,18 +100,16 @@ public class HowlersDrive extends OpMode
     public void Claw()
     {
         if(gamepad2.left_bumper){
-            robot.intakeLift.setPower(-0.5);
-        } else if (gamepad2.right_bumper){
-        robot.intakeLift.setPower(0.5);
-        }  else {
-        robot.intakeLift.setPower(0);
+            robot.liftClaw.setPower(-0.5);
         }
-
-
+        if (gamepad2.right_bumper){
+            robot.liftClaw.setPower(0.5);
+        }
         if(gamepad2.a){
-            robot.intakeClaw.setPosition(360);
-        }else if(gamepad2.b) {
-            robot.intakeClaw.setPosition(0);
+            robot.claw.setPosition(0);
+
+        }else if (gamepad2.b){
+            robot.claw.setPosition(360);
         }
 
 
@@ -184,8 +182,7 @@ public class HowlersDrive extends OpMode
         robot.rightFront.setPower(0);
         robot.leftBack.setPower(0);
         robot.leftFront.setPower(0);
-        robot.intakeLift.setPower(0);
-        robot.intakeClaw.setPosition(0);
+
 
     }
 
