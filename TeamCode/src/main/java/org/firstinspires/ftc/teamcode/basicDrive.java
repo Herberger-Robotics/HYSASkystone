@@ -140,6 +140,9 @@ public class basicDrive extends OpMode
 
         }else if (gamepad2.b){
             robot.claw.setPower(-0.5);
+        }else{
+            robot.claw.setPower(0);
+
         }
 
 
