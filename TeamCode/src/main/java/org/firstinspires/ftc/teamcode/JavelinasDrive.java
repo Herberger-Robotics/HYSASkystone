@@ -1,22 +1,17 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 
+@TeleOp(name="JavelinasDrive", group="Iterative Opmode")
 
-@TeleOp(name="TrialDrive", group="Iterative Opmode")
-
-public class TrialDrive extends OpMode
+public class JavelinasDrive extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    TrialHardware robot = new TrialHardware();
-    boolean z = false;
+    JavelinasHardware robot = new JavelinasHardware();
 
 
     /*
@@ -26,7 +21,6 @@ public class TrialDrive extends OpMode
     public void init() {
         telemetry.addData("Status", "Initialized");
         robot.init(hardwareMap);
-
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -52,62 +46,21 @@ public class TrialDrive extends OpMode
      */
     @Override
     public void loop() {
+        double moveSpeed = 1;
+        Move(moveSpeed); // move drive train
 
-        if(gamepad1.b){
-            boolean z = true;
-        }else if(gamepad1.y){
-            boolean z = false;
+        if(gamepad2.a) {
+            robot.rotor1.setPower(1);
+            robot.rotor2.setPower(1);
+        } else if(gamepad2.b) {
+            robot.rotor1.setPower(-1);
+            robot.rotor2.setPower(-1);
+        } else {
+            robot.rotor1.setPower(0);
+            robot.rotor2.setPower(0);
         }
-
-        if(z = true){
-            Move(0.5);
-
-
-        }else if(z = false){
-            Move(1);
-
-        }
-
-        claw();
-
-
-
-
-
-
-
     }
 
-    public void claw(){
-
-        if(gamepad2.right_bumper){
-            robot.armActuator.setPower(0.5);
-
-
-        }else{
-            robot.armActuator.setPower(0);
-
-
-
-        } if(gamepad2.left_bumper){
-            robot.armActuator.setPower(-0.5);
-
-        }
-        if(gamepad2.a){
-
-            robot.clawDropper.setPosition(180);
-
-            if(gamepad2.x){
-
-                robot.clawDropper.setPosition(360);
-
-            }
-        }
-
-
-
-
-    }
 
     public void Move(double speed){
         double y = 0;
@@ -116,13 +69,11 @@ public class TrialDrive extends OpMode
         x = gamepad1.left_stick_x * speed;
         y = gamepad1.left_stick_y * speed;
 
-        robot.leftRearDRIVE.setPower(y+x);
-        robot.leftFrontDRIVE.setPower(y+x);
+        robot.leftRear.setPower(y+x);
+        robot.leftFront.setPower(y+x);
 
-        robot.rightRearDRIVE.setPower(y-x);
-        robot.rightFrontDRIVE.setPower(y-x);
-
-
+        robot.rightRear.setPower(y-x);
+        robot.rightFront.setPower(y-x);
     }
 
 

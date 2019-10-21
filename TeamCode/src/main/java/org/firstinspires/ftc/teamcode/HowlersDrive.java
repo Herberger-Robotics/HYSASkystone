@@ -37,14 +37,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 
+@TeleOp(name="HowlersDrive", group="Iterative Opmode")
 
-@TeleOp(name="nathanDrive10111", group="Iterative Opmode")
-
-public class nathanDrive extends OpMode
+public class HowlersDrive extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    nathanHardware robot = new nathanHardware();
+    HowlersHardware robot = new HowlersHardware();
 
 
 
@@ -81,18 +80,37 @@ public class nathanDrive extends OpMode
      */
     @Override
     public void loop() {
-
-        if(gamepad1.b){
-            Move(0.5);
-
-        }else{
-
-            Move(1);
+        Claw();
+        Move(1);
+        if(gamepad1.right_bumper)
+        {
+            rightStrafe(1);
         }
 
-        claw();
+        if(gamepad1.left_bumper)
+        {
+            leftStrafe(1);
+        }
 
 
+
+    }
+
+
+    public void Claw()
+    {
+        if(gamepad2.left_bumper){
+            robot.liftClaw.setPower(-0.5);
+        }
+        if (gamepad2.right_bumper){
+            robot.liftClaw.setPower(0.5);
+        }
+        if(gamepad2.a){
+            robot.claw.setPosition(0);
+
+        }else if (gamepad2.b){
+            robot.claw.setPosition(360);
+        }
 
 
 
@@ -100,54 +118,58 @@ public class nathanDrive extends OpMode
 
     }
 
-    public void claw(){
-
-        if(gamepad1.right_bumper){
-            robot.armActuator.setPower(0.5);
-
-
-        }else{
-            robot.armActuator.setPower(0);
-
-
-
-        } if(gamepad1.left_bumper){
-            robot.armActuator.setPower(-0.5);
-
-        }
-        if(gamepad1.a){
-
-            robot.clawDropper.setPosition(180);
-
-        if(gamepad1.x){
-
-            robot.clawDropper.setPosition(360);
-
-        }
-        }
-
-
-
-
-    }
 
     public void Move(double speed){
         double y = 0;
         double x =0;
+        x = speed * gamepad1.left_stick_x;
+        y = speed * gamepad1.left_stick_y;
 
-        x = gamepad1.left_stick_x * speed;
-        y = gamepad1.left_stick_y * speed;
+        robot.leftFront.setPower(y+x);
+        robot.leftBack.setPower(y+x);
 
-        robot.leftRearDRIVE.setPower(y+x);
-        robot.leftFrontDRIVE.setPower(y+x);
-
-        robot.rightRearDRIVE.setPower(y-x);
-        robot.rightFrontDRIVE.setPower(y-x);
-
+        robot.rightFront.setPower(y-x);
+        robot.rightBack.setPower(y-x);
 
     }
 
 
+    public void rightStrafe(double speed){
+
+        robot.leftFront.setPower(speed);
+        robot.leftBack.setPower(-speed);
+
+        robot.rightFront.setPower(-speed);
+        robot.rightBack.setPower(speed);
+        /*else{
+            robot.rightBack.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftFront.setPower(0);
+            robot.leftBack.setPower(0);
+        }*/
+
+
+
+
+
+    }
+    public void leftStrafe(double speed){
+
+        robot.leftFront.setPower(-speed);
+        robot.leftBack.setPower(speed);
+
+        robot.rightFront.setPower(speed);
+        robot.rightBack.setPower(speed);
+        /*else{
+            robot.rightBack.setPower(0); // breaks motors
+            robot.rightFront.setPower(0);
+            robot.leftFront.setPower(0);
+            robot.leftBack.setPower(0);
+
+        }*/
+
+
+    }
 
 
 
@@ -156,7 +178,10 @@ public class nathanDrive extends OpMode
      */
     @Override
     public void stop() {
-
+        robot.rightBack.setPower(0);
+        robot.rightFront.setPower(0);
+        robot.leftBack.setPower(0);
+        robot.leftFront.setPower(0);
 
 
     }
