@@ -100,39 +100,63 @@ public class HowlersDrive extends OpMode
     public void Claw()
     {
         if(gamepad2.left_bumper){
-            robot.liftClaw.setPower(-0.9);
+           robot.liftClaw.setPower(-0.9);
         } else if (gamepad2.right_bumper){
             robot.liftClaw.setPower(0.9);
         } else {
             robot.liftClaw.setPower(0);
         }
         if(gamepad2.a){
-            //robot.leftClaw.setPosition(45);
+            robot.leftClaw.setPosition(45);
             robot.rightClaw.setPosition(45);
 
         }else if (gamepad2.b){
-            //robot.leftClaw.setPosition(90);
+            robot.leftClaw.setPosition(90);
             robot.rightClaw.setPosition(90);
+        }
+        if(gamepad2.dpad_up) {
+            encoderLift(1, 1);
         }
 
 
 
 
-
     }
+    public void encoderLift(double speed, double rotations){
+        int liftTarget;
+            liftTarget = robot.rightFront.getCurrentPosition() + (int)(rotations) * (1440);
 
+            robot.liftClaw.setTargetPosition(liftTarget);
+
+            robot.liftClaw.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            robot.liftClaw.setPower(speed);
+
+            while (robot.liftClaw.isBusy())
+            {
+
+            }
+
+            robot.liftClaw.setPower(0);
+
+            robot.liftClaw.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        }
 
     public void Move(double speed){
         double y = 0;
-        double x =0;
+        double x = 0;
+        double leftPower =0;
+        double rightPower = 0;
         x = speed * gamepad1.left_stick_x;
         y = speed * gamepad1.left_stick_y;
+        leftPower = y+x;
+        rightPower = y-x;
+        robot.leftFront.setPower(leftPower);
+        robot.leftBack.setPower(leftPower);
 
-        robot.leftFront.setPower(y+x);
-        robot.leftBack.setPower(y+x);
-
-        robot.rightFront.setPower(y-x);
-        robot.rightBack.setPower(y-x);
+        robot.rightFront.setPower(rightPower);
+        robot.rightBack.setPower(rightPower);
 
     }
 
@@ -162,7 +186,7 @@ public class HowlersDrive extends OpMode
         robot.leftBack.setPower(speed);
 
         robot.rightFront.setPower(speed);
-        robot.rightBack.setPower(speed);
+        robot.rightBack.setPower(-speed);
         /*else{
             robot.rightBack.setPower(0); // breaks motors
             robot.rightFront.setPower(0);
@@ -187,5 +211,6 @@ public class HowlersDrive extends OpMode
         robot.leftFront.setPower(0);
         robot.liftClaw.setPower(0);
     }
+
 
 }
