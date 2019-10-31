@@ -86,6 +86,18 @@ public class HowlersDrive extends OpMode
 
 
 
+
+        if(gamepad2.a){
+            robot.leftClaw.setPosition(0);
+            robot.rightClaw.setPosition(0);
+
+        }else if (gamepad2.b){
+            robot.leftClaw.setPosition(0.37);
+            robot.rightClaw.setPosition(0.37);
+        }
+
+
+
     }
 
     public void Claw()
@@ -99,14 +111,7 @@ public class HowlersDrive extends OpMode
         }
 
 
-        if(gamepad2.a){
-            robot.leftClaw.setPosition(0.2);
-            robot.rightClaw.setPosition(0.2);
 
-        }else if (gamepad2.b){
-            robot.leftClaw.setPosition(0);
-            robot.rightClaw.setPosition(0);
-        }
         if(gamepad2.dpad_up) {
             encoderLift(1, 1);
         }
