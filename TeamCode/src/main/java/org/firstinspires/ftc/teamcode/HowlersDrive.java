@@ -81,19 +81,17 @@ public class HowlersDrive extends OpMode
     @Override
     public void loop() {
         Claw();
-        Strafe(1);
-        Move(1);
+        Strafe(0.5);
+        Move(0.5);
 
 
 
 
         if(gamepad2.a){
-            robot.leftClaw.setPosition(0);
-            robot.rightClaw.setPosition(0);
+            robot.clawServo.setPosition(1);
 
         }else if (gamepad2.b){
-            robot.leftClaw.setPosition(0.37);
-            robot.rightClaw.setPosition(0.37);
+            robot.clawServo.setPosition(0.6);
         }
 
 
