@@ -61,6 +61,7 @@ public class testWheels extends OpMode
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftWheel = null;
     private DcMotor rightWheel = null;
+    private DcMotor lift = null;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -70,9 +71,11 @@ public class testWheels extends OpMode
 
         leftWheel  = hardwareMap.get(DcMotor.class, "leftWheel");
         rightWheel = hardwareMap.get(DcMotor.class, "rightWheel");
+        lift = hardwareMap.get(DcMotor.class,"lift");
 
         leftWheel.setDirection(DcMotorSimple.Direction.REVERSE);
         rightWheel.setDirection(DcMotorSimple.Direction.FORWARD);
+        lift.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
     /*
@@ -96,12 +99,26 @@ public class testWheels extends OpMode
     @Override
     public void loop() {
         if(gamepad1.a){
-            leftWheel.setPower(1);
-            rightWheel.setPower(1);
+            leftWheel.setPower(0.3);
+            rightWheel.setPower(0.3);
 
         }else if(gamepad1.b){
-            leftWheel.setPower(-1);
-            rightWheel.setPower(-1);
+            leftWheel.setPower(-0.3);
+            rightWheel.setPower(-0.3);
+
+        }else{
+            leftWheel.setPower(0);
+            rightWheel.setPower(0);
+
+        }
+        if(gamepad1.right_bumper){
+            lift.setPower(1);
+        }else if(gamepad1.left_bumper)
+        {
+            lift.setPower(-1);
+
+        }else{
+            lift.setPower(0);
 
         }
 

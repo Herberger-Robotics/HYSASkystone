@@ -100,8 +100,8 @@ public class HowlersDrive extends OpMode
 
 
         if(gamepad2.a){
-            robot.leftClaw.setPosition(0.2);
-            robot.rightClaw.setPosition(0.2);
+            robot.leftClaw.setPosition(0.5);
+            robot.rightClaw.setPosition(0.5);
 
         }else if (gamepad2.b){
             robot.leftClaw.setPosition(0);

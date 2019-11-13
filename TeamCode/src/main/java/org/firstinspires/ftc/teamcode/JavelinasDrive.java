@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
@@ -12,6 +13,8 @@ public class JavelinasDrive extends OpMode
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     JavelinasHardware robot = new JavelinasHardware();
+
+
 
 
     /*
@@ -46,19 +49,37 @@ public class JavelinasDrive extends OpMode
      */
     @Override
     public void loop() {
-        double moveSpeed = 1;
-        Move(moveSpeed); // move drive train
+        Move(1);
+        liftBot();
 
-        if(gamepad2.a) {
-            robot.rotor1.setPower(1);
-            robot.rotor2.setPower(1);
-        } else if(gamepad2.b) {
-            robot.rotor1.setPower(-1);
-            robot.rotor2.setPower(-1);
-        } else {
-            robot.rotor1.setPower(0);
-            robot.rotor2.setPower(0);
+        if(gamepad2.a){
+        grabClaw();
         }
+
+        if(gamepad2.b){
+            openClaw();
+        }
+
+
+
+        if(gamepad1.right_bumper){
+            rightStrafe(1);
+        }
+        if(gamepad1.left_bumper){
+            leftStrafe(1);
+        }
+
+       /* if(gamepad2.a){
+            robot.extendArm.setPower(1);
+
+        } else if(gamepad2.b) {
+            robot.extendArm.setPower(-1);
+        }else{
+            robot.extendArm.setPower(0);
+
+        }*/
+
+
     }
 
 
@@ -69,14 +90,58 @@ public class JavelinasDrive extends OpMode
         x = gamepad1.left_stick_x * speed;
         y = gamepad1.left_stick_y * speed;
 
-        robot.leftRear.setPower(y+x);
-        robot.leftFront.setPower(y+x);
+        robot.leftRear.setPower(y-x);
+        robot.leftFront.setPower(y-x);
 
-        robot.rightRear.setPower(y-x);
-        robot.rightFront.setPower(y-x);
+        robot.rightRear.setPower(y+x);
+        robot.rightFront.setPower(y+x);
+    }
+
+    public void liftBot(){
+
+        if(gamepad2.right_bumper){
+            robot.lift.setPower(-1);
+        }else if(gamepad2.left_bumper){
+            robot.lift.setPower(1);
+        }else{
+            robot.lift.setPower(0);
+
+        }
+
+    }
+    public void grabClaw(){
+            robot.servo.setPosition(0.55);
+
     }
 
 
+
+
+
+    public void rightStrafe(double speed){
+
+        robot.leftFront.setPower(-speed);
+        robot.leftRear.setPower(speed);
+        robot.rightFront.setPower(speed);
+        robot.rightRear.setPower(-speed);
+
+    }
+
+    public void leftStrafe(double speed){
+
+        robot.leftFront.setPower(speed);
+        robot.leftRear.setPower(-speed);
+        robot.rightFront.setPower(-speed);
+        robot.rightRear.setPower(speed);
+
+    }
+
+    public void openClaw(){
+
+        robot.servo.setPosition(0);
+
+
+    }
 
 
 
