@@ -29,6 +29,7 @@ public class HowlersHardware {
         rightBack = hwMap.get(DcMotor.class, "rightBack");
         leftBack = hwMap.get(DcMotor.class, "leftBack");
         leftFront = hwMap.get(DcMotor.class,"leftFront");
+
         liftClaw = hwMap.get(DcMotor.class, "liftClaw");
         clawServo = hwMap.get(Servo.class, "clawServo");
 
@@ -36,6 +37,7 @@ public class HowlersHardware {
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
         leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
         leftBack.setDirection(DcMotorSimple.Direction.FORWARD);
+        liftClaw.setDirection(DcMotorSimple.Direction.FORWARD);
 
         rightBack.setPower(0);
         rightFront.setPower(0);
