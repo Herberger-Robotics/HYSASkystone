@@ -83,25 +83,25 @@ public class HowlersDrive extends OpMode
         Claw();
         //Strafe(1);
 
-        robot.leftFront.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x) * 0.5);
-        robot.leftBack.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x) * 0.5);
+        robot.leftFront.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x) * 0.5);
+        robot.leftBack.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x) * 0.5);
 
         robot.rightFront.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x) * 0.5);
         robot.rightBack.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x) * 0.5);
 
         if (gamepad1.right_bumper) {
-            robot.leftFront.setPower(0.5);
-            robot.leftBack.setPower(-0.5);
+            robot.leftFront.setPower(0.25);
+            robot.leftBack.setPower(-0.25);
 
             robot.rightFront.setPower(-0.5);
-            robot.rightBack.setPower(0.5);
+            robot.rightBack.setPower(0.25);
 
         }else if (gamepad1.left_bumper){
-            robot.leftFront.setPower(-0.5);
-            robot.leftBack.setPower(0.5);
+            robot.leftFront.setPower(-0.25);
+            robot.leftBack.setPower(0.25);
 
-            robot.rightFront.setPower(0.5);
-            robot.rightBack.setPower(-0.5);
+            robot.rightFront.setPower(0.25);
+            robot.rightBack.setPower(-0.25);
         }
 
     }
@@ -117,10 +117,10 @@ public class HowlersDrive extends OpMode
 
 
         if (gamepad2.a) {
-            robot.clawServo.setPosition(0.6);
+            robot.clawServo.setPosition(0.9);
 
         } else if (gamepad2.b) {
-            robot.clawServo.setPosition(0.2);
+            robot.clawServo.setPosition(0.5);
         }
 
     }
