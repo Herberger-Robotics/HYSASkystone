@@ -63,7 +63,7 @@ public class JavelinasDrive extends OpMode
 
 
         if(gamepad1.right_bumper){
-            rightStrafe(1);
+            rightStrafe(1); //I have poopoo in my pants
         }
         if(gamepad1.left_bumper){
             leftStrafe(1);
