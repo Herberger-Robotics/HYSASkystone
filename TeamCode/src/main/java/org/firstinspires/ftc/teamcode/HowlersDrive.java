@@ -82,9 +82,12 @@ public class HowlersDrive extends OpMode
     public void loop() {
         Claw();
         Strafe(1);
-        Move(1);
 
+        robot.leftFront.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
+        robot.leftBack.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
 
+        robot.rightFront.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
+        robot.rightBack.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
 
     }
 
@@ -100,12 +103,10 @@ public class HowlersDrive extends OpMode
 
 
         if(gamepad2.a){
-            robot.leftClaw.setPosition(0.5);
-            robot.rightClaw.setPosition(0.5);
+            robot.clawServo.setPosition(0.6);
 
         }else if (gamepad2.b){
-            robot.leftClaw.setPosition(0);
-            robot.rightClaw.setPosition(0);
+            robot.clawServo.setPosition(0.2);
         }
         if(gamepad2.dpad_up) {
             encoderLift(1, 1);
@@ -135,23 +136,6 @@ public class HowlersDrive extends OpMode
             robot.liftClaw.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         }
-
-    public void Move(double speed){
-        double y = 0;
-        double x = 0;
-        double leftPower = 0;
-        double rightPower = 0;
-        x = speed * gamepad1.left_stick_x;
-        y = speed * gamepad1.left_stick_y;
-        leftPower = y+x;
-        rightPower = y-x;
-        robot.leftFront.setPower(y-x);
-        robot.leftBack.setPower(y+x);
-
-        robot.rightFront.setPower(y-x);
-        robot.rightBack.setPower(y+x);
-
-    }
 
 
     public void Strafe(double speed){
