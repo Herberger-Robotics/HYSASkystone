@@ -81,85 +81,66 @@ public class HowlersDrive extends OpMode
     @Override
     public void loop() {
         Claw();
-        Strafe(1);
+        //Strafe(1);
 
-        robot.leftFront.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
-        robot.leftBack.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
+        robot.leftFront.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x) * 0.5);
+        robot.leftBack.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x) * 0.5);
 
-        robot.rightFront.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
-        robot.rightBack.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
+        robot.rightFront.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x) * 0.5);
+        robot.rightBack.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x) * 0.5);
+
+        if (gamepad1.right_bumper) {
+            robot.leftFront.setPower(0.5);
+            robot.leftBack.setPower(-0.5);
+
+            robot.rightFront.setPower(-0.5);
+            robot.rightBack.setPower(0.5);
+
+        }else if (gamepad1.left_bumper){
+            robot.leftFront.setPower(-0.5);
+            robot.leftBack.setPower(0.5);
+
+            robot.rightFront.setPower(0.5);
+            robot.rightBack.setPower(-0.5);
+        }
 
     }
 
-    public void Claw()
-    {
-        if(gamepad2.left_bumper){
-           robot.liftClaw.setPower(-0.9);
-        } else if (gamepad2.right_bumper){
+    public void Claw() {
+        if (gamepad2.left_bumper) {
+            robot.liftClaw.setPower(-0.9);
+        } else if (gamepad2.right_bumper) {
             robot.liftClaw.setPower(0.9);
         } else {
             robot.liftClaw.setPower(0);
         }
 
 
-        if(gamepad2.a){
+        if (gamepad2.a) {
             robot.clawServo.setPosition(0.6);
 
-        }else if (gamepad2.b){
+        } else if (gamepad2.b) {
             robot.clawServo.setPosition(0.2);
         }
-        if(gamepad2.dpad_up) {
-            encoderLift(1, 1);
-        }
-
-
-
 
     }
-    public void encoderLift(double speed, double rotations){
-        int liftTarget;
-            liftTarget = robot.rightFront.getCurrentPosition() + (int)(rotations) * (1440);
-
-            robot.liftClaw.setTargetPosition(liftTarget);
-
-            robot.liftClaw.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            robot.liftClaw.setPower(speed);
-
-            while (robot.liftClaw.isBusy())
-            {
-
-            }
-
-            robot.liftClaw.setPower(0);
-
-            robot.liftClaw.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        }
 
 
     public void Strafe(double speed){
-
         if (gamepad1.right_bumper) {
-            robot.leftFront.setPower(speed);
-            robot.leftBack.setPower(-speed);
+            robot.leftFront.setPower(0.5);
+            robot.leftBack.setPower(-0.5);
 
-            robot.rightFront.setPower(-speed);
-            robot.rightBack.setPower(speed);
+            robot.rightFront.setPower(-0.5);
+            robot.rightBack.setPower(0.5);
 
         }else if (gamepad1.left_bumper){
-            robot.leftFront.setPower(-speed);
-            robot.leftBack.setPower(speed);
+            robot.leftFront.setPower(-0.5);
+            robot.leftBack.setPower(0.5);
 
-            robot.rightFront.setPower(speed);
-            robot.rightBack.setPower(-speed);
+            robot.rightFront.setPower(0.5);
+            robot.rightBack.setPower(-0.5);
         }
-
-
-
-
-
-
     }
     /*public void leftStrafe(){
         double speed = 0;
