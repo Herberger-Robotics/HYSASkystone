@@ -39,10 +39,12 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="HowlersDrive", group="Iterative Opmode")
 
-public class HowlersDrive extends OpMode {
+public class HowlersDrive extends OpMode
+{
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     HowlersHardware robot = new HowlersHardware();
+
 
 
     /*
@@ -78,99 +80,67 @@ public class HowlersDrive extends OpMode {
      */
     @Override
     public void loop() {
+        Claw();
+        //Strafe(1);
 
-        Strafe(1);
-        Move(1);
+        robot.leftFront.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x) * 0.5);
+        robot.leftBack.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x) * 0.5);
 
+        robot.rightFront.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x) * 0.5);
+        robot.rightBack.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x) * 0.5);
+
+        if (gamepad1.right_bumper) {
+            robot.leftFront.setPower(0.25);
+            robot.leftBack.setPower(-0.25);
+
+            robot.rightFront.setPower(-0.5);
+            robot.rightBack.setPower(0.25);
+
+        }else if (gamepad1.left_bumper){
+            robot.leftFront.setPower(-0.25);
+            robot.leftBack.setPower(0.25);
+
+            robot.rightFront.setPower(0.25);
+            robot.rightBack.setPower(-0.25);
+        }
 
     }
 
-    /*public void Claw()
-    {
-        if(gamepad2.left_bumper){
-           robot.liftClaw.setPower(-0.9);
-        } else if (gamepad2.right_bumper){
+    public void Claw() {
+        if (gamepad2.left_bumper) {
+            robot.liftClaw.setPower(-0.9);
+        } else if (gamepad2.right_bumper) {
             robot.liftClaw.setPower(0.9);
         } else {
             robot.liftClaw.setPower(0);
         }
 
 
-        if(gamepad2.a){
-            robot.leftClaw.setPosition(0.5);
-            robot.rightClaw.setPosition(0.5);
+        if (gamepad2.a) {
+            robot.clawServo.setPosition(0.9);
 
-        }else if (gamepad2.b){
-            robot.leftClaw.setPosition(0);
-            robot.rightClaw.setPosition(0);
+        } else if (gamepad2.b) {
+            robot.clawServo.setPosition(0.5);
         }
-        if(gamepad2.dpad_up) {
-            encoderLift(1, 1);
-        }
-
-
-}*/
-    public void encoderLift(double speed, double rotations){
-        int liftTarget;
-            liftTarget = robot.rightFront.getCurrentPosition() + (int)(rotations) * (1440);
-
-            robot.liftClaw.setTargetPosition(liftTarget);
-
-            robot.liftClaw.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            robot.liftClaw.setPower(speed);
-
-            while (robot.liftClaw.isBusy())
-            {
-
-            }
-
-            robot.liftClaw.setPower(0);
-
-            robot.liftClaw.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        }
-
-    public void Move(double speed){
-        double y = 0;
-        double x = 0;
-        double leftPower = 0;
-        double rightPower = 0;
-        x = speed * gamepad1.left_stick_x;
-        y = speed * gamepad1.left_stick_y;
-        leftPower = y+x;
-        rightPower = y-x;
-        robot.leftFront.setPower(y-x);
-        robot.leftBack.setPower(y+x);
-
-        robot.rightFront.setPower(y-x);
-        robot.rightBack.setPower(y+x);
 
     }
 
 
     public void Strafe(double speed){
-
         if (gamepad1.right_bumper) {
-            robot.leftFront.setPower(speed);
-            robot.leftBack.setPower(-speed);
+            robot.leftFront.setPower(0.5);
+            robot.leftBack.setPower(-0.5);
 
-            robot.rightFront.setPower(-speed);
-            robot.rightBack.setPower(speed);
+            robot.rightFront.setPower(-0.5);
+            robot.rightBack.setPower(0.5);
 
         }else if (gamepad1.left_bumper){
-            robot.leftFront.setPower(-speed);
-            robot.leftBack.setPower(speed);
+            robot.leftFront.setPower(-0.5);
+            robot.leftBack.setPower(0.5);
 
-            robot.rightFront.setPower(speed);
-            robot.rightBack.setPower(-speed);
+            robot.rightFront.setPower(0.5);
+            robot.rightBack.setPower(-0.5);
         }
-
-
-
-
-
-
     }
     /*public void leftStrafe(){
         double speed = 0;
