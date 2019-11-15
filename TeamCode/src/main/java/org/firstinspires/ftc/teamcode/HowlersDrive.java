@@ -39,10 +39,12 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="HowlersDrive", group="Iterative Opmode")
 
-public class HowlersDrive extends OpMode {
+public class HowlersDrive extends OpMode
+{
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     HowlersHardware robot = new HowlersHardware();
+
 
 
     /*
@@ -78,14 +80,15 @@ public class HowlersDrive extends OpMode {
      */
     @Override
     public void loop() {
-
+        Claw();
         Strafe(1);
         Move(1);
 
 
+
     }
 
-    /*public void Claw()
+    public void Claw()
     {
         if(gamepad2.left_bumper){
            robot.liftClaw.setPower(-0.9);
@@ -109,7 +112,9 @@ public class HowlersDrive extends OpMode {
         }
 
 
-}*/
+
+
+    }
     public void encoderLift(double speed, double rotations){
         int liftTarget;
             liftTarget = robot.rightFront.getCurrentPosition() + (int)(rotations) * (1440);
