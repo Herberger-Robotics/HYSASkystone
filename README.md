@@ -1,4 +1,4 @@
-## Welcome to the Herberger Robotics Github Repository!
+# Welcome to the Herberger Robotics Github Repository!
 This is a github repo for the FTC teams #10111 and #13968
 
 
@@ -7,7 +7,7 @@ This is a github repo for the FTC teams #10111 and #13968
 ## Updating the Repository
 
 ### add the original repository as remote repository called "upstream"
-git remote add upstream https://github.com/OWNER/REPOSITORY.git
+git remote add upstream https://github.com/FIRST-Tech-Challenge/SkyStone.git
 
 ### fetch all changes from the upstream repository
 git fetch upstream
