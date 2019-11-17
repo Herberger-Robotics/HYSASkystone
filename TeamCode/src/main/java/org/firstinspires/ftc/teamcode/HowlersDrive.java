@@ -82,26 +82,27 @@ public class HowlersDrive extends OpMode
     public void loop() {
         Claw();
         //Strafe(1);
+        double speed = 0.25;
 
-        robot.leftFront.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x) * 0.5);
-        robot.leftBack.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x) * 0.5);
+        robot.leftFront.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x) * 0.25);
+        robot.leftBack.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x) * 0.25);
 
-        robot.rightFront.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x) * 0.5);
-        robot.rightBack.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x) * 0.5);
+        robot.rightFront.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x) * 0.25);
+        robot.rightBack.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x) * 0.25);
 
         if (gamepad1.right_bumper) {
             robot.leftFront.setPower(0.25);
-            robot.leftBack.setPower(-0.25);
+            robot.leftBack.setPower(0.25);
 
-            robot.rightFront.setPower(-0.5);
-            robot.rightBack.setPower(0.25);
+            robot.rightFront.setPower(-0.25);
+            robot.rightBack.setPower(-0.25);
 
         }else if (gamepad1.left_bumper){
             robot.leftFront.setPower(-0.25);
-            robot.leftBack.setPower(0.25);
+            robot.leftBack.setPower(-0.25);
 
             robot.rightFront.setPower(0.25);
-            robot.rightBack.setPower(-0.25);
+            robot.rightBack.setPower(0.25);
         }
 
     }

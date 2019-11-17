@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
@@ -30,6 +31,7 @@ public class HowlersAuto extends LinearOpMode {
 
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
     private static final boolean PHONE_IS_PORTRAIT = false  ;
+
 
 
     private static final String VUFORIA_KEY =
@@ -74,11 +76,15 @@ public class HowlersAuto extends LinearOpMode {
     @Override
     public void runOpMode(){
         robot.init(hardwareMap);
-        stopAndReset();
-
         waitForStart();
-        vuforiaSkystone();
-        encoderDrive(1, 1);
+
+        encoderDrive(0.4,-2,-2); // keep negative for forward, 3 is ninety degree
+
+
+
+
+
+
 
 
 
@@ -92,84 +98,77 @@ public class HowlersAuto extends LinearOpMode {
 
         robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 
 
-    public void encoderDrive(double speed, double rotations){
-        int rightTarget;
-        int leftTarget;
+    public void encoderLift(double speed, double rotations){
+        int liftTarget;
 
+        if(opModeIsActive()){
 
-        if(opModeIsActive())
-        {
-            rightTarget = robot.rightFront.getCurrentPosition() + (int)(rotations) * (1440);
-            leftTarget = robot.leftFront.getCurrentPosition() + (int)(rotations) * (1440);
+            liftTarget = robot.liftClaw.getCurrentPosition() + (int)((rotations) * (2789));
 
-            robot.rightFront.setTargetPosition(rightTarget);
-            robot.leftFront.setTargetPosition(leftTarget);
-            robot.rightBack.setTargetPosition(rightTarget);
-            robot.leftBack.setTargetPosition(leftTarget);
+            robot.liftClaw.setTargetPosition(liftTarget);
 
-            robot.rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.liftClaw.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            robot.rightFront.setPower(speed);
-            robot.rightBack.setPower(speed);
-            robot.leftFront.setPower(speed);
-            robot.leftBack.setPower(speed);
+            robot.liftClaw.setPower(Math.abs(speed));
 
-            while (opModeIsActive() && robot.leftBack.isBusy() || robot.leftFront.isBusy() || robot.rightBack.isBusy() || robot.rightFront.isBusy() )
-            {
+            while(opModeIsActive() && robot.liftClaw.isBusy()){
 
             }
 
-            robot.rightBack.setPower(0);
-            robot.rightFront.setPower(0);
-            robot.leftFront.setPower(0);
-            robot.leftBack.setPower(0);
+            robot.liftClaw.setPower(0);
 
-            robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.liftClaw.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         }
 
 
-
-
     }
-    public void turnLeft(double speed, double rotations){
-        int rightTarget;
-        int leftTarget;
+
+
+    public void encoderDrive(double speed, double rightRotations, double leftRotations){
+        int backrightTarget;
+        int backleftTarget;
+        int frontrightTarget;
+        int frontleftTarget;
+
+
+
 
 
         if(opModeIsActive())
         {
-            rightTarget = robot.rightFront.getCurrentPosition() + (int)(rotations) * (1440);
-            leftTarget = robot.leftFront.getCurrentPosition() + (int)(rotations) * (1440);
+            frontrightTarget = robot.rightFront.getCurrentPosition() + (int)((rightRotations) * (1497.325));
+            frontleftTarget = robot.leftFront.getCurrentPosition() + (int)((leftRotations) * (1497.325));
+            backleftTarget = robot.leftBack.getCurrentPosition() + (int)((leftRotations) * (1497.325));
+            backrightTarget = robot.rightBack.getCurrentPosition() + (int)((rightRotations) * (1497.325));
 
-            robot.rightFront.setTargetPosition(rightTarget);
-            robot.leftFront.setTargetPosition(leftTarget);
-            robot.rightBack.setTargetPosition(rightTarget);
-            robot.leftBack.setTargetPosition(leftTarget);
+            /*robot.rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+            robot.rightRear.setDirection(DcMotorSimple.Direction.FORWARD);
+            robot.leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.leftFront.setDirection(DcMotorSimple.Direction.REVERSE);*/
+
+            robot.rightFront.setTargetPosition(frontrightTarget);
+            robot.leftFront.setTargetPosition(frontleftTarget);
+            robot.rightBack.setTargetPosition(backrightTarget);
+            robot.leftBack.setTargetPosition(backleftTarget);
 
             robot.rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            robot.rightFront.setPower(speed);
-            robot.rightBack.setPower(speed);
-            robot.leftFront.setPower(-speed);
-            robot.leftBack.setPower(-speed);
+            robot.rightFront.setPower(Math.abs(speed));
+            robot.rightBack.setPower(Math.abs(speed));
+            robot.leftFront.setPower(Math.abs(speed));
+            robot.leftBack.setPower(Math.abs(speed));
 
-            while (opModeIsActive() && robot.leftBack.isBusy() || robot.leftFront.isBusy() || robot.rightBack.isBusy() || robot.rightFront.isBusy() )
+            while (opModeIsActive() && robot.leftBack.isBusy() && robot.leftFront.isBusy() && robot.rightBack.isBusy() && robot.rightFront.isBusy() )
             {
 
             }
@@ -187,47 +186,65 @@ public class HowlersAuto extends LinearOpMode {
         }
     }
 
-    public void turnRight(double speed, double rotations){
-        int rightTarget;
-        int leftTarget;
+    /*public void turnRight(double speed, double rightRotations, double leftRotations){
+        int backrightTarget;
+        int backleftTarget;
+        int frontrightTarget;
+        int frontleftTarget;
 
 
         if(opModeIsActive())
         {
-            rightTarget = robot.rightFront.getCurrentPosition() + (int)(rotations) * (1440);
-            leftTarget = robot.leftFront.getCurrentPosition() + (int)(rotations) * (1440);
+            frontrightTarget = robot.rightFront.getCurrentPosition() + (int)(rightRotations) * (538);
+            frontleftTarget = robot.leftFront.getCurrentPosition() + (int)(leftRotations) * (538);
+            backleftTarget = robot.leftFront.getCurrentPosition() + (int)(leftRotations) * (538);
+            backrightTarget = robot.rightRear.getCurrentPosition() + (int)(rightRotations) * (538);
 
-            robot.rightFront.setTargetPosition(rightTarget);
-            robot.leftFront.setTargetPosition(leftTarget);
-            robot.rightBack.setTargetPosition(rightTarget);
-            robot.leftBack.setTargetPosition(leftTarget);
+            robot.rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
 
-            robot.rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightFront.setTargetPosition(frontrightTarget);
+            robot.leftFront.setTargetPosition(frontleftTarget);
+            robot.rightRear.setTargetPosition(backrightTarget);
+            robot.leftRear.setTargetPosition(backleftTarget);
+
+            robot.rightRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.leftRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            robot.rightFront.setPower(-speed);
-            robot.rightBack.setPower(-speed);
-            robot.leftFront.setPower(speed);
-            robot.leftBack.setPower(speed);
+            robot.rightFront.setPower(Math.abs(speed));
+            robot.rightRear.setPower(Math.abs(speed));
+            robot.leftFront.setPower(Math.abs(speed));
+            robot.leftRear.setPower(Math.abs(speed));
 
-            while (opModeIsActive() && robot.leftBack.isBusy() || robot.leftFront.isBusy() || robot.rightBack.isBusy() || robot.rightFront.isBusy() )
+            while (opModeIsActive() && robot.leftRear.isBusy() && robot.leftFront.isBusy() && robot.rightRear.isBusy() && robot.rightFront.isBusy() )
             {
 
             }
 
-            robot.rightBack.setPower(0);
+            robot.rightRear.setPower(0);
             robot.rightFront.setPower(0);
             robot.leftFront.setPower(0);
-            robot.leftBack.setPower(0);
+            robot.leftRear.setPower(0);
 
             robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+
+
         }
+
+    }*/
+
+    public void delay(double time){
+
+
+
 
     }
 
@@ -382,9 +399,9 @@ public class HowlersAuto extends LinearOpMode {
 
         // Next, translate the camera lens to where it is on the robot.
         // In this example, it is centered (left to right), but forward of the middle of the robot, and above ground level.
-        final float CAMERA_FORWARD_DISPLACEMENT  = 4.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot center
-        final float CAMERA_VERTICAL_DISPLACEMENT = 8.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
-        final float CAMERA_LEFT_DISPLACEMENT     = 0;     // eg: Camera is ON the robot's center line
+        final float CAMERA_FORWARD_DISPLACEMENT  = 8.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot center
+        final float CAMERA_VERTICAL_DISPLACEMENT = 4.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
+        final float CAMERA_LEFT_DISPLACEMENT     = 1.0f;     // eg: Camera is ON the robot's center line
 
         OpenGLMatrix robotFromCamera = OpenGLMatrix
                 .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
