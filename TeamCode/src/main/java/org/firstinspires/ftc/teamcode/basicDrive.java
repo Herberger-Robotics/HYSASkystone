@@ -39,7 +39,7 @@ import com.qualcomm.robotcore.util.Range;
 
 
 @TeleOp(name="BasicDrive", group="Iterative Opmode")
-
+@Disabled
 public class basicDrive extends OpMode
 {
     // Declare OpMode members.

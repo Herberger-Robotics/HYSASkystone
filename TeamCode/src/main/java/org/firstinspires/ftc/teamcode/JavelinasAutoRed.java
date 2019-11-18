@@ -24,7 +24,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 @Autonomous
-public class JavelinasAuto extends LinearOpMode {
+public class JavelinasAutoRed extends LinearOpMode {
 
     JavelinasHardware robot = new JavelinasHardware();
     private ElapsedTime runtime = new ElapsedTime();
@@ -87,7 +87,7 @@ public class JavelinasAuto extends LinearOpMode {
         sleep(500);
         encoderDrive(0.5,1.2,1.2);
         sleep(500);
-        encoderDrive(0.5,-1.3,1.3);
+        encoderDrive(0.5,1.3,-1.3);
         sleep(500);
         encoderDrive(0.5,-4.5,-4.5);
         sleep(500);

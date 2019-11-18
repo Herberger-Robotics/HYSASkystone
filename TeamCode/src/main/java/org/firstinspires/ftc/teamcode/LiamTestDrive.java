@@ -38,6 +38,7 @@ import com.qualcomm.robotcore.util.Range;
 
 
 @TeleOp(name="LiamTestDrive", group="Iterative Opmode")
+@Disabled
 
 public class LiamTestDrive extends OpMode
 {

@@ -78,13 +78,13 @@ public class JavelinasAutoBuildPlate extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
 
-        encoderLift(0.5,-0.5);
+        encoderLift(0.5,-0.7);
         sleep(500);
-        encoderDrive(0.5,-3.5,-3.5);
+        encoderDrive(0.3,-3.6,-3.6);
         sleep(500);
-        encoderLift(0.5,0.3);
+        encoderLift(0.5,0.7);
         sleep(500);
-        encoderDrive(0.3,3.6,3.6);
+        encoderDrive(0.3,3.4,3.4);
         sleep(500);
         encoderLift(0.5,-0.5);
         sleep(500);
@@ -92,7 +92,7 @@ public class JavelinasAutoBuildPlate extends LinearOpMode {
         sleep(500);
         encoderLift(0.5,0.4);
         sleep(500);
-        encoderDrive(0.5,-3,-3);
+        encoderDrive(0.5,-3.2,-3.2);
 
 
 
