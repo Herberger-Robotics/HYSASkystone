@@ -41,8 +41,8 @@ public class HowlersAutoBuildplateRed extends LinearOpMode {
     public void runOpMode(){
         robot.init(hardwareMap);
         waitForStart();
-        //encoderDrive(0.4,1,-1); // keep negative for forward, 3 is ninety degree
-        encoderLift(0.4,1); // keep negative for forward, 3 is ninety degree
+
+
     }
 
     public void stopAndReset(){
