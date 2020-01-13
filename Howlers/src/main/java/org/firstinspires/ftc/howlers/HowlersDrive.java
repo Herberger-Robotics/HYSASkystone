@@ -44,6 +44,7 @@ public class HowlersDrive extends OpMode
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     HowlersHardware robot = new HowlersHardware();
+    double gear = 1;
 
 
 
@@ -58,6 +59,16 @@ public class HowlersDrive extends OpMode
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
+        gear = 1;
+
+        robot.liftClaw.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
+
     }
 
     /*
@@ -82,89 +93,65 @@ public class HowlersDrive extends OpMode
     public void loop() {
         Claw();
         //Strafe(1);
-        double speed = 0.25;
 
-        robot.leftFront.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x) * 0.25);
-        robot.leftBack.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x) * 0.25);
+        double speed = 0.25 * gear;
 
-        robot.rightFront.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x) * 0.25);
-        robot.rightBack.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x) * 0.25);
+        double y =0;
+        double x =0;
+        y = gamepad1.left_stick_y;
+        x = gamepad1.left_stick_x;
 
-        if (gamepad1.right_bumper) {
-            robot.leftFront.setPower(0.25);
-            robot.leftBack.setPower(0.25);
+            robot.leftFront.setPower((y + x) * speed);
+            robot.leftBack.setPower((y - x) * speed);
 
-            robot.rightFront.setPower(-0.25);
-            robot.rightBack.setPower(-0.25);
+            robot.rightFront.setPower((y - x) * speed);
+            robot.rightBack.setPower((y + x) * speed);
+
+
+       if (gamepad1.right_bumper) {
+            robot.leftFront.setPower(-0.25 * gear);
+            robot.leftBack.setPower(0.25 * gear);
+
+            robot.rightFront.setPower(-0.25 * gear);
+            robot.rightBack.setPower(0.25 * gear);
 
         }else if (gamepad1.left_bumper){
-            robot.leftFront.setPower(-0.25);
-            robot.leftBack.setPower(-0.25);
+            robot.leftFront.setPower(0.25 * gear);
+            robot.leftBack.setPower(-0.25 * gear);
 
-            robot.rightFront.setPower(0.25);
-            robot.rightBack.setPower(0.25);
+            robot.rightFront.setPower(0.25 * gear);
+            robot.rightBack.setPower(-0.25 * gear);
+        }
+        if (gamepad1.a) {
+            gear = 2;
+        }else if(gamepad1.b) {
+            gear = 1;
+        }else if(gamepad1.y) {
+            //gear = 3;
+        }else if(gamepad1.x) {
+            gear = 4;
         }
 
     }
 
     public void Claw() {
-        if (gamepad2.left_bumper) {
-            robot.liftClaw.setPower(-0.9);
-        } else if (gamepad2.right_bumper) {
-            robot.liftClaw.setPower(0.9);
+        if (gamepad2.right_bumper) {
+            robot.liftClaw.setPower(-1);
+        } else if (gamepad2.left_bumper) {
+            robot.liftClaw.setPower(1);
         } else {
             robot.liftClaw.setPower(0);
         }
 
 
         if (gamepad2.a) {
-            robot.clawServo.setPosition(1);
+            robot.clawServo.setPosition(0.5);
 
         } else if (gamepad2.b) {
-            robot.clawServo.setPosition(0.5);
+            robot.clawServo.setPosition(0.1);
         }
 
     }
-
-
-    public void Strafe(double speed){
-        if (gamepad1.right_bumper) {
-            robot.leftFront.setPower(0.5);
-            robot.leftBack.setPower(-0.5);
-
-            robot.rightFront.setPower(-0.5);
-            robot.rightBack.setPower(0.5);
-
-        }else if (gamepad1.left_bumper){
-            robot.leftFront.setPower(-0.5);
-            robot.leftBack.setPower(0.5);
-
-            robot.rightFront.setPower(0.5);
-            robot.rightBack.setPower(-0.5);
-        }
-    }
-    /*public void leftStrafe(){
-        double speed = 0;
-        if(gamepad1.left_bumper) {
-            speed = 1;
-        }
-        robot.leftFront.setPower(-speed);
-        robot.leftBack.setPower(speed);
-
-        robot.rightFront.setPower(speed);
-        robot.rightBack.setPower(-speed);
-        /*else{
-            robot.rightBack.setPower(0); // breaks motors
-            robot.rightFront.setPower(0);
-            robot.leftFront.setPower(0);
-            robot.leftBack.setPower(0);
-
-        }
-
-
-    }*/
-
-
 
     /*
      * Code to run ONCE after the driver hits STOP

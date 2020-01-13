@@ -33,10 +33,13 @@ public class HowlersHardware {
         liftClaw = hwMap.get(DcMotor.class, "liftClaw");
         clawServo = hwMap.get(Servo.class, "clawServo");
 
-        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        //drive train
+        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
         leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftBack.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        //lift
         liftClaw.setDirection(DcMotorSimple.Direction.FORWARD);
 
         rightBack.setPower(0);
