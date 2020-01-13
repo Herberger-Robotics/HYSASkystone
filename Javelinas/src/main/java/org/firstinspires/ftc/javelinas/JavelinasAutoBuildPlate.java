@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.javelinas;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -78,19 +78,12 @@ public class JavelinasAutoBuildPlate extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
 
-        encoderLift(0.5,-0.5);
-        sleep(500);
+
         encoderDrive(0.5,-3.5,-3.5);
-        sleep(500);
-        encoderLift(0.5,0.3);
         sleep(500);
         encoderDrive(0.3,3.6,3.6);
         sleep(500);
-        encoderLift(0.5,-0.5);
-        sleep(500);
         encoderDrive(0.5,3,-3);
-        sleep(500);
-        encoderLift(0.5,0.4);
         sleep(500);
         encoderDrive(0.5,-3,-3);
 
