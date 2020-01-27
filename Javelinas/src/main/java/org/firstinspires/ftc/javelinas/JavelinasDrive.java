@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.javelinas;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@TeleOp(name="JavelinasDrive", group="Iterative Opmode")
+@TeleOp(name="JavelinasDriveFinal", group="Iterative Opmode")
 
 public class JavelinasDrive extends OpMode
 {
@@ -63,23 +63,40 @@ public class JavelinasDrive extends OpMode
 
 
         if(gamepad1.right_bumper){
-            rightStrafe(1); //I have poopoo in my pants
+            rightStrafe(1);
         }
         if(gamepad1.left_bumper){
             leftStrafe(1);
         }
 
-       /* if(gamepad2.a){
+        if(gamepad1.a){
+            suck(0.4);
+
+        }else if(gamepad1.b){
+            spit(0.4);
+        }else{
+            robot.rotor2.setPower(0);
+            robot.rotor1.setPower(0);
+        }
+
+        if(gamepad2.x){
             robot.extendArm.setPower(1);
 
-        } else if(gamepad2.b) {
+        } else if(gamepad2.y) {
             robot.extendArm.setPower(-1);
         }else{
             robot.extendArm.setPower(0);
 
-        }*/
+        }
 
 
+
+        if(gamepad1.x){
+            robot.theservo.setPosition(0.8);
+        }else if (gamepad1.y){
+            robot.theservo.setPosition(0.3);
+
+        }
     }
 
 
@@ -110,7 +127,7 @@ public class JavelinasDrive extends OpMode
 
     }
     public void grabClaw(){
-            robot.servo.setPosition(0.55);
+            robot.servo.setPosition(0.3);
 
     }
 
@@ -138,8 +155,22 @@ public class JavelinasDrive extends OpMode
 
     public void openClaw(){
 
-        robot.servo.setPosition(0);
+        robot.servo.setPosition(0.1);
 
+
+    }
+
+    public void suck(double speed)
+    {
+        robot.rotor1.setPower(speed);
+        robot.rotor2.setPower(speed);
+
+
+    }
+
+    public void spit(double speed){
+        robot.rotor1.setPower(-speed);
+        robot.rotor2.setPower(-speed);
 
     }
 

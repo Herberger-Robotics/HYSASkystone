@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.javelinas;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -23,7 +23,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
-@Autonomous
+@Autonomous(name="JavelinasAutoSilverEdition")
 public class JavelinasAuto extends LinearOpMode {
 
     JavelinasHardware robot = new JavelinasHardware();
@@ -73,12 +73,17 @@ public class JavelinasAuto extends LinearOpMode {
 
 
 
+
+
     @Override
     public void runOpMode(){
         robot.init(hardwareMap);
         waitForStart();
 
-        robot.servo.setPosition(0);
+        sleep(26000);
+        encoderDrive(0.4,1.8,1.8);
+
+        /*robot.servo.setPosition(0);
         encoderDrive(0.4,-2.89,-2.89); // keep negative for forward, 3 is ninety degrees
         sleep(500);
         robot.servo.setPosition(0.55);
@@ -96,7 +101,7 @@ public class JavelinasAuto extends LinearOpMode {
         encoderDrive(0.5,-1,-1);
         sleep(500);
         encoderLift(0.5,-0.5);
-        sleep(500);
+        sleep(500);*/
 
 
 
@@ -477,9 +482,13 @@ public class JavelinasAuto extends LinearOpMode {
 
                 double xPosition = translation.get(0);
                 if(xPosition < -10){
+
                     positionSkystone = "left";
+
                 }else{
                     positionSkystone = "center";
+
+
                 }
 
                 // express the rotation of the robot in degrees.

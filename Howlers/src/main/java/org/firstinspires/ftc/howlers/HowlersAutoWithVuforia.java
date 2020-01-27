@@ -1,11 +1,12 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.howlers;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.howlers.HowlersHardware;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
@@ -24,11 +25,10 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
-@Autonomous
-@Disabled
-public class JavelinasAutoRed extends LinearOpMode {
+@Autonomous(name="HowlersAutoMainForTesting")
+public class HowlersAutoWithVuforia extends LinearOpMode {
 
-    JavelinasHardware robot = new JavelinasHardware();
+    HowlersHardware robot = new HowlersHardware();
     private ElapsedTime runtime = new ElapsedTime();
 
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
@@ -75,27 +75,13 @@ public class JavelinasAutoRed extends LinearOpMode {
 
 
 
+
+
     @Override
     public void runOpMode(){
         robot.init(hardwareMap);
         waitForStart();
 
-        robot.servo.setPosition(0);
-        encoderDrive(0.4,-3.5,-3.5); // keep negative for forward, 1.3 is ninety degrees
-        sleep(500);
-        robot.servo.setPosition(0.55);
-        sleep(1000);
-        encoderLift(0.5,-0.25);
-        sleep(500);
-        encoderDrive(0.5,1.2,1.2);
-        sleep(500);
-        encoderDrive(0.5,1.3,-1.3);
-        sleep(500);
-        encoderDrive(0.5,-4.5,-4.5);
-        sleep(500);
-        robot.servo.setPosition(0);
-        sleep(500);
-        encoderDrive(0.5,1,1);
 
 
 
@@ -110,14 +96,14 @@ public class JavelinasAutoRed extends LinearOpMode {
     }
 
     public void stopAndReset(){
-        robot.leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
@@ -128,21 +114,21 @@ public class JavelinasAutoRed extends LinearOpMode {
 
         if(opModeIsActive()){
 
-            liftTarget = robot.lift.getCurrentPosition() + (int)((rotations) * (2789));
+            liftTarget = robot.liftClaw.getCurrentPosition() + (int)((rotations) * (2789));
 
-            robot.lift.setTargetPosition(liftTarget);
+            robot.liftClaw.setTargetPosition(liftTarget);
 
-            robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.liftClaw.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            robot.lift.setPower(Math.abs(speed));
+            robot.liftClaw.setPower(Math.abs(speed));
 
-            while(opModeIsActive() && robot.lift.isBusy()){
+            while(opModeIsActive() && robot.liftClaw.isBusy()){
 
             }
 
-            robot.lift.setPower(0);
+            robot.liftClaw.setPower(0);
 
-            robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.liftClaw.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         }
 
@@ -162,10 +148,10 @@ public class JavelinasAutoRed extends LinearOpMode {
 
         if(opModeIsActive())
         {
-            frontrightTarget = robot.rightFront.getCurrentPosition() + (int)((rightRotations) * (538));
-            frontleftTarget = robot.leftFront.getCurrentPosition() + (int)((leftRotations) * (538));
-            backleftTarget = robot.leftRear.getCurrentPosition() + (int)((leftRotations) * (538));
-            backrightTarget = robot.rightRear.getCurrentPosition() + (int)((rightRotations) * (538));
+            frontrightTarget = robot.rightFront.getCurrentPosition() + (int)((rightRotations) * (1497.325));
+            frontleftTarget = robot.leftFront.getCurrentPosition() + (int)((leftRotations) * (1497.325));
+            backleftTarget = robot.leftBack.getCurrentPosition() + (int)((leftRotations) * (1497.325));
+            backrightTarget = robot.rightBack.getCurrentPosition() + (int)((rightRotations) * (1497.325));
 
             /*robot.rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
             robot.rightRear.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -174,32 +160,32 @@ public class JavelinasAutoRed extends LinearOpMode {
 
             robot.rightFront.setTargetPosition(frontrightTarget);
             robot.leftFront.setTargetPosition(frontleftTarget);
-            robot.rightRear.setTargetPosition(backrightTarget);
-            robot.leftRear.setTargetPosition(backleftTarget);
+            robot.rightBack.setTargetPosition(backrightTarget);
+            robot.leftBack.setTargetPosition(backleftTarget);
 
-            robot.rightRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.leftRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             robot.rightFront.setPower(Math.abs(speed));
-            robot.rightRear.setPower(Math.abs(speed));
+            robot.rightBack.setPower(Math.abs(speed));
             robot.leftFront.setPower(Math.abs(speed));
-            robot.leftRear.setPower(Math.abs(speed));
+            robot.leftBack.setPower(Math.abs(speed));
 
-            while (opModeIsActive() && robot.leftRear.isBusy() && robot.leftFront.isBusy() && robot.rightRear.isBusy() && robot.rightFront.isBusy() )
+            while (opModeIsActive() && robot.leftBack.isBusy() && robot.leftFront.isBusy() && robot.rightBack.isBusy() && robot.rightFront.isBusy() )
             {
 
             }
 
-            robot.rightRear.setPower(0);
+            robot.rightBack.setPower(0);
             robot.rightFront.setPower(0);
             robot.leftFront.setPower(0);
-            robot.leftRear.setPower(0);
+            robot.leftBack.setPower(0);
 
             robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         }
@@ -478,9 +464,13 @@ public class JavelinasAutoRed extends LinearOpMode {
 
                 double xPosition = translation.get(0);
                 if(xPosition < -10){
+
                     positionSkystone = "left";
+
                 }else{
                     positionSkystone = "center";
+
+
                 }
 
                 // express the rotation of the robot in degrees.

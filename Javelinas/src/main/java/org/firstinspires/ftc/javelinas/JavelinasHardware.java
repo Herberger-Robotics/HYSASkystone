@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.javelinas;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -13,9 +13,12 @@ public class JavelinasHardware {
     public DcMotor rightRear = null;
     public DcMotor leftFront = null;
     public DcMotor leftRear = null;
+    public DcMotor rotor1 = null;
+    public DcMotor rotor2 = null;
     public CRServo extendArm = null;
     public DcMotor lift = null;
     public Servo servo =null;
+    public Servo theservo = null;
 
     HardwareMap hwMap = null;
 
@@ -29,12 +32,18 @@ public class JavelinasHardware {
         extendArm = hwMap.get(CRServo.class, "extendArm");
         lift = hwMap.get(DcMotor.class,"lift");
         servo = hwMap.get(Servo.class,"servo");
+        theservo = hwMap.get(Servo.class, "theservo");
+        rotor1 = hwMap.get(DcMotor.class,"rotor1");
+        rotor2 = hwMap.get(DcMotor.class,"rotor2");
 
 
 
-        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        rotor1.setDirection(DcMotorSimple.Direction.REVERSE);
+        rotor2.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRear.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
         leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
         lift.setDirection(DcMotorSimple.Direction.FORWARD);
 
