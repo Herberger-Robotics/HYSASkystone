@@ -12,13 +12,25 @@ public class HowlersAutoBuildplateBlue extends HowlersAutoFunction {
     HowlersHardware robot = new HowlersHardware();
     private ElapsedTime runtime = new ElapsedTime();
 
+
     @Override
     public void runOpMode(){
+        double speed = 0.4;
         initRobot();
         waitForStart();
-        //encoderDrive(0.4,1,1);
-        //encoderStrafe(0.4,1,-1);
-        //encoderDrive(0.4, 0.1, 0.1);
-        encoderLift(0.4,0.000000000000000000001);
+        encoderDrive(speed,1,1); //forwards
+        encoderStrafe(speed,1,-1); //left
+        encoderLift(speed,1);//raise
+        encoderDrive(speed, 0.3, 0.3);//forwards
+        encoderLift(speed,-1);//lower
+        encoderDrive(speed,-1.3,-1.3);//backwards
+        encoderLift(speed,1);//raise
+        encoderStrafe(speed,-1,1);//right
+        encoderLift(speed,-1);//lower
+        encoderStrafe(speed,-0.7,0.7);//right
+        encoderDrive(speed,1.3,1.3); //forwards
+        encoderStrafe(speed,1,-1); //left
+        encoderTurn(speed,1.3,1.3);//turnleft
+        encoderDrive(speed,1,1);
     }
 }

@@ -26,7 +26,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 @Autonomous(name="HowlersAutoMainForTesting")
-public class HowlersAutoWithVuforia extends LinearOpMode {
+public class HowlersAutoWithVuforia extends HowlersAutoFunction {
 
     HowlersHardware robot = new HowlersHardware();
     private ElapsedTime runtime = new ElapsedTime();

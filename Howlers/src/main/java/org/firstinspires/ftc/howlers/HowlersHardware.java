@@ -14,8 +14,8 @@ public class HowlersHardware {
     public DcMotor leftBack = null;
     public DcMotor liftClaw = null;
     public Servo clawServo = null;
-    public Servo backServoRight = null;
-    public Servo backServoLeft = null;
+    //public Servo backServoRight = null;
+    //public Servo backServoLeft = null;
 
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
@@ -34,8 +34,8 @@ public class HowlersHardware {
 
         liftClaw = hwMap.get(DcMotor.class, "liftClaw");
         clawServo = hwMap.get(Servo.class, "clawServo");
-        backServoRight = hwMap.get(Servo.class,"backServoRight");
-        backServoLeft = hwMap.get(Servo.class,"backServoLeft");
+        //backServoRight = hwMap.get(Servo.class,"backServoRight");
+        //backServoLeft = hwMap.get(Servo.class,"backServoLeft");
 
 
         //drive train
