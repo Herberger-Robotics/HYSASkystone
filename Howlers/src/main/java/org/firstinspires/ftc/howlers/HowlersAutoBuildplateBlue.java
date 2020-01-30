@@ -32,5 +32,6 @@ public class HowlersAutoBuildplateBlue extends HowlersAutoFunction {
         encoderStrafe(speed,1,-1); //left
         encoderLift(speed,1);//raise
         encoderDrive(speed,-0.5,-0.5);//backwards
+        encoderLift(speed,-1);//lower
     }
 }
