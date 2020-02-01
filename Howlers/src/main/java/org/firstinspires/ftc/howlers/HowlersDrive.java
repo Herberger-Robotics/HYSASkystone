@@ -101,10 +101,10 @@ public class HowlersDrive extends OpMode
         y = gamepad1.left_stick_y;
         x = gamepad1.left_stick_x;
 
-            robot.leftFront.setPower((y + x) * speed);
+            robot.leftFront.setPower((y - x) * speed);
             robot.leftBack.setPower((y - x) * speed);
 
-            robot.rightFront.setPower((y - x) * speed);
+            robot.rightFront.setPower((y + x) * speed);
             robot.rightBack.setPower((y + x) * speed);
 
 
@@ -112,22 +112,22 @@ public class HowlersDrive extends OpMode
             robot.leftFront.setPower(-0.25 * gear);
             robot.leftBack.setPower(0.25 * gear);
 
-            robot.rightFront.setPower(-0.25 * gear);
-            robot.rightBack.setPower(0.25 * gear);
+            robot.rightFront.setPower(0.25 * gear);
+            robot.rightBack.setPower(-0.25 * gear);
 
         }else if (gamepad1.left_bumper){
             robot.leftFront.setPower(0.25 * gear);
             robot.leftBack.setPower(-0.25 * gear);
 
-            robot.rightFront.setPower(0.25 * gear);
-            robot.rightBack.setPower(-0.25 * gear);
+            robot.rightFront.setPower(-0.25 * gear);
+            robot.rightBack.setPower(0.25 * gear);
         }
         if (gamepad1.a) {
             gear = 2;
         }else if(gamepad1.b) {
             gear = 1;
         }else if(gamepad1.y) {
-            //gear = 3;
+            gear = 3;
         }else if(gamepad1.x) {
             gear = 4;
         }
@@ -145,7 +145,7 @@ public class HowlersDrive extends OpMode
 
 
         if (gamepad2.a) {
-            robot.clawServo.setPosition(0.5);
+            robot.clawServo.setPosition(0.3);
 
         } else if (gamepad2.b) {
             robot.clawServo.setPosition(0.1);
