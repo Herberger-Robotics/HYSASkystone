@@ -1,12 +1,9 @@
 package org.firstinspires.ftc.howlers;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.howlers.HowlersHardware;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
@@ -26,17 +23,60 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 
-@Autonomous(name="HowlersAutoMainForTesting")
-public class HowlersAutoWithVuforia extends HowlersAutoFunction {
+/**
+ * This 2019-2020 OpMode illustrates the basics of using the Vuforia localizer to determine
+ * positioning and orientation of robot on the SKYSTONE FTC field.
+ * The code is structured as a LinearOpMode
+ *
+ * When images are located, Vuforia is able to determine the position and orientation of the
+ * image relative to the camera.  This sample code then combines that information with a
+ * knowledge of where the target images are on the field, to determine the location of the camera.
+ *
+ * From the Audience perspective, the Red Alliance station is on the right and the
+ * Blue Alliance Station is on the left.
+ * Eight perimeter targets are distributed evenly around the four perimeter walls
+ * Four Bridge targets are located on the bridge uprights.
+ * Refer to the Field Setup manual for more specific location details
+ *
+ * A final calculation then uses the location of the camera on the robot to determine the
+ * robot's location and orientation on the field.
+ *
+ * @see VuforiaLocalizer
+ * @see VuforiaTrackableDefaultListener
+ * see  skystone/doc/tutorial/FTC_FieldCoordinateSystemDefinition.pdf
+ *
+ * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
+ * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list.
+ *
+ * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
+ * is explained below.
+ */
 
-    HowlersHardware robot = new HowlersHardware();
-    private ElapsedTime runtime = new ElapsedTime();
 
+@TeleOp(name="SKYSTONE Vuforia Nav", group ="Concept")
+public class vuforiaBruhV2 extends LinearOpMode {
+
+    // IMPORTANT:  For Phone Camera, set 1) the camera source and 2) the orientation, based on how your phone is mounted:
+    // 1) Camera Source.  Valid choices are:  BACK (behind screen) or FRONT (selfie side)
+    // 2) Phone Orientation. Choices are: PHONE_IS_PORTRAIT = true (portrait) or PHONE_IS_PORTRAIT = false (landscape)
+    //
+    // NOTE: If you are running on a CONTROL HUB, with only one USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;
+    //
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = FRONT;
     private static final boolean PHONE_IS_PORTRAIT = false  ;
 
-
-
+    /*
+     * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
+     * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
+     * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
+     * web site at https://developer.vuforia.com/license-manager.
+     *
+     * Vuforia license keys are always 380 characters long, and look as if they contain mostly
+     * random data. As an example, here is a example of a fragment of a valid key:
+     *      ... yIgIzTqZ4mWjk9wd3cZO9T1axEqzuhxoGlfOOI2dRzKS4T0hQ8kT ...
+     * Once you've obtained a license key, copy the string from the Vuforia web site
+     * and paste it in to your code on the next line, between the double quotes.
+     */
     private static final String VUFORIA_KEY =
             "AdWlmRL/////AAABmR6HEi8caUNulL+O+TccAf4rW7c2xMm9TodMQFWHmHokXLNO9htpsD1aE9lpgtjkf6/Z/eJQQ9WuVC6g4f4I1Uo0+R9b1gJX9F8X9VIOFX7fIcfN6vRaGGoV/YuJ4lBm+eOu969IbDZymrgIwe1fukuo73VGB+PdWMYgVwyt612sqzaeUopvLs19mh1WlsKupNGdC4M3lbgcF/Ty6IHfgIbZJPCYwcegtZ50pEkcmjh6WIq3lyzq/3sNgsKcF4TNIQtyBeUmeDZk9mSBlkliRPvx5cHTzUjLvB3zLVVvGbRgNS9TSAZ15a/+Fa5zVPIVyoMdxgNtzzY7EKAWNBG5CqcthGJqF3rR2fs9ImWCvHrJ";
 
@@ -68,42 +108,12 @@ public class HowlersAutoWithVuforia extends HowlersAutoFunction {
     private float phoneYRotate    = 0;
     private float phoneZRotate    = 0;
 
-    public double skystoneLocation = 0;
-
-
-
-
-
-
-
-
-
-    @Override
-    public void runOpMode(){
-        robot.init(hardwareMap);
-        waitForStart();
-        encoderDrive(0.4,0.3,0.3);
-        sleep(100);
-        encoderStrafe(0.3,-0.4,0.4);
-        vuforiaSkystone();
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-
-
-
-    public void vuforiaSkystone()
-    {
+    @Override public void runOpMode() {
+        /*
+         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
+         * We can pass Vuforia the handle to a camera preview resource (on the RC phone);
+         * If no camera monitor is desired, use the parameter-less constructor instead (commented out below).
+         */
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
@@ -289,6 +299,8 @@ public class HowlersAutoWithVuforia extends HowlersAutoFunction {
 
                     if(trackable.getName().equals("Stone Target")){
                         telemetry.addLine("Stone Target Is Visible");
+
+
                     }
 
                     targetVisible = true;
@@ -311,24 +323,21 @@ public class HowlersAutoWithVuforia extends HowlersAutoFunction {
                 telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
                         translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
 
+                telemetry.addData("Pos (mm)", "{X, Y, Z} = %.1f, %.1f, %.1f",
+                        translation.get(0), translation.get(1), translation.get(2));
+
                 double xPosition = translation.get(0);
-                if(xPosition < -10){
-
-                    positionSkystone = "left";
-
-                }else{
+                if(-xPosition > 640 && -xPosition <= 646){
+                    positionSkystone = "right";
+                } else if (-xPosition > 646 && -xPosition < 650){
                     positionSkystone = "center";
-
-
+                } else {
+                    positionSkystone = "left";
                 }
 
                 // express the rotation of the robot in degrees.
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
-            }
-            else {
-                positionSkystone = "right";
-                telemetry.addData("Visible Target", "none");
             }
             telemetry.addData("Skystone Position", positionSkystone);
             telemetry.update();
@@ -336,20 +345,5 @@ public class HowlersAutoWithVuforia extends HowlersAutoFunction {
 
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
 }
