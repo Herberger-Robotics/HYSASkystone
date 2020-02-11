@@ -14,12 +14,18 @@ public class HowlersBrickBlue extends HowlersAutoFunction {
 
     @Override
     public void runOpMode(){
+        double speed = 0.4;
         initRobot();
+        robot.init(hardwareMap);
         telemetry.addData("Status:","Initialized");
         telemetry.update();
         waitForStart();
-        telemetry.addData("Detected: ", detectSkystone());
+        robot.clawServo.setPosition(0.7);
+        encoderDrive(speed,0.55,0.55);//forward
+        String stonePos = findPosition(speed);
+        telemetry.addData("stonePos: ", stonePos);
         telemetry.update();
+        pickUpSkystone(speed, stonePos, true);
     }
 
 }

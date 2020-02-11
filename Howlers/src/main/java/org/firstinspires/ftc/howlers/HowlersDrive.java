@@ -66,6 +66,7 @@ public class HowlersDrive extends OpMode
         robot.rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.footLong.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
 
@@ -92,6 +93,7 @@ public class HowlersDrive extends OpMode
     @Override
     public void loop() {
         Claw();
+        Park();
         //Strafe(1);
 
         double speed = 0.25 * gear;
@@ -145,12 +147,22 @@ public class HowlersDrive extends OpMode
 
 
         if (gamepad2.a) {
-            robot.clawServo.setPosition(0.55);
+            robot.clawServo.setPosition(0.7);
 
         } else if (gamepad2.b) {
             robot.clawServo.setPosition(0.2);
         }
 
+    }
+
+    public void Park() {
+        if(gamepad2.x) {
+            robot.footLong.setPower(1);
+        } else if(gamepad2.y){
+            robot.footLong.setPower(-1);
+        } else {
+            robot.footLong.setPower(0);
+        }
     }
 
     /*

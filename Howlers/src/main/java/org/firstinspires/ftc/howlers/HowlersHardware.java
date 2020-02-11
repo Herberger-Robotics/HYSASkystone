@@ -13,9 +13,9 @@ public class HowlersHardware {
     public DcMotor leftFront = null;
     public DcMotor leftBack = null;
     public DcMotor liftClaw = null;
+    public DcMotor footLong = null;
     public Servo clawServo = null;
-    //public Servo backServoRight = null;
-    //public Servo backServoLeft = null;
+
 
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
@@ -34,8 +34,8 @@ public class HowlersHardware {
 
         liftClaw = hwMap.get(DcMotor.class, "liftClaw");
         clawServo = hwMap.get(Servo.class, "clawServo");
-        //backServoRight = hwMap.get(Servo.class,"backServoRight");
-        //backServoLeft = hwMap.get(Servo.class,"backServoLeft");
+
+        footLong = hwMap.get(DcMotor.class, "footLong");
 
 
         //drive train
@@ -47,11 +47,15 @@ public class HowlersHardware {
         //lift
         liftClaw.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        //5 Dollar Foot Long
+        footLong.setDirection(DcMotorSimple.Direction.FORWARD);
+
         rightBack.setPower(0);
         rightFront.setPower(0);
         leftBack.setPower(0);
         leftFront.setPower(0);
         liftClaw.setPower(0);
+        footLong.setPower(0);
 
 
         liftClaw.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -59,6 +63,7 @@ public class HowlersHardware {
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        footLong.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 
