@@ -274,10 +274,6 @@ public abstract class HowlersAutoFunction extends LinearOpMode {
         }
     }
 
-
-
-
-
     public void delay(double time){
 
     }
@@ -478,45 +474,7 @@ public abstract class HowlersAutoFunction extends LinearOpMode {
         return targetVisible;
     }
 
-    public String findPosition(double speed) {
-        String stonePos = null;
-        if(detectSkystone()) {
-            stonePos = "left";
-        } else {
-            encoderStrafe(speed,-0.3,0.3); //right
-            if(detectSkystone()) {
-                stonePos = "center";
-            }else {
-                encoderStrafe(speed,-0.3,0.3); //right
-                stonePos = "right";
-            }
-        }
-        return stonePos;
-    }
-
-    public void pickUpSkystone(double speed, String stonePos, boolean firstStone) {
-        switch(stonePos) {
-            case "left": {
-            if(firstStone == true) {
-                encoderStrafe(speed,0.25,-0.25); //left
-                encoderDrive(speed,0.5,0.5);//forwards
-                robot.clawServo.setPosition(0.2);
-                encoderDrive(speed,-1,-1);//backwards
-                encoderStrafe(speed,1.5,-1.5);//left
-                robot.clawServo.setPosition(0.7);
-                encoderStrafe(speed,-1,1);//right
-            }else {
-
-            }
-            }
-            case "center": {
-
-            }
-            case "right": {
-
-            }
-        }
-    }
+    public void pickUpSkystone(double speed, String stonePos, boolean firstStone) {    }
 
     public void park(double speed, double shooterRotations, double leftRotations, double rightRotations) {
 
@@ -528,7 +486,7 @@ public abstract class HowlersAutoFunction extends LinearOpMode {
 
             while(opModeIsActive() && robot.footLong.isBusy())
             {
-                telemetry.addLine("penis");
+                telemetry.addLine("beep boop");
                 telemetry.update();
             }
 
@@ -536,5 +494,10 @@ public abstract class HowlersAutoFunction extends LinearOpMode {
 
             robot.footLong.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
+    }
+
+    public void robotWait(double seconds) {
+        runtime.reset();
+        while (!isStopRequested() && (runtime.seconds() < seconds)) {}
     }
 }

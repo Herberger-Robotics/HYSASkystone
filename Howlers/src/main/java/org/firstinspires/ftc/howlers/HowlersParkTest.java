@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+@Autonomous(name="Nut")
 public class HowlersParkTest extends HowlersAutoFunction {
 
     HowlersHardware robot = new HowlersHardware();
@@ -13,6 +14,6 @@ public class HowlersParkTest extends HowlersAutoFunction {
 
     @Override
     public void runOpMode() {
-        park(0, 0.4, 1,1);
+        park(0, 0.4, 0,0);
     }
 }
