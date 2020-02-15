@@ -66,9 +66,26 @@ public abstract class HowlersAutoFunction extends LinearOpMode {
 
     public double skystoneLocation = 0;
 
+    public VuforiaTrackables targetsSkyStone;
+    public VuforiaLocalizer.Parameters parameters;
+    private boolean returnValue = false;
+
     public void initRobot() {
         robot.init(hardwareMap);
         telemetry.addLine("Initialized");
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+
+        // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+
+        parameters.vuforiaLicenseKey = VUFORIA_KEY;
+        parameters.cameraDirection   = CAMERA_CHOICE;
+
+        //  Instantiate the Vuforia engine
+        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+
+        targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
+
         stopAndReset();
     }
 
@@ -206,10 +223,7 @@ public abstract class HowlersAutoFunction extends LinearOpMode {
     }
 
     public void encoderStrafe(double speed, double rightRotations, double leftRotations){
-        int backrightTarget;
-        int backleftTarget;
-        int frontrightTarget;
-        int frontleftTarget;
+
 
 
 
@@ -217,10 +231,10 @@ public abstract class HowlersAutoFunction extends LinearOpMode {
 
         if(opModeIsActive())
         {
-            frontrightTarget = robot.rightFront.getCurrentPosition() - (int)((rightRotations) * (1497.325));
-            frontleftTarget = robot.leftFront.getCurrentPosition() - (int)((leftRotations) * (1497.325));
-            backleftTarget = robot.leftBack.getCurrentPosition() - (int)((leftRotations) * (1497.325));
-            backrightTarget = robot.rightBack.getCurrentPosition() - (int)((rightRotations) * (1497.325));
+            int frontrightTarget = robot.rightFront.getCurrentPosition() - (int)((rightRotations) * (1497.325));
+            int frontleftTarget = robot.leftFront.getCurrentPosition() - (int)((leftRotations) * (1497.325));
+            int backleftTarget = robot.leftBack.getCurrentPosition() - (int)((leftRotations) * (1497.325));
+            int backrightTarget = robot.rightBack.getCurrentPosition() - (int)((rightRotations) * (1497.325));
 
             /*robot.rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
             robot.rightRear.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -265,22 +279,8 @@ public abstract class HowlersAutoFunction extends LinearOpMode {
     }
 
     public boolean detectSkystone() {
-        boolean returnValue = false;
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-
-        // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
-
-        parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection   = CAMERA_CHOICE;
-
-        //  Instantiate the Vuforia engine
-        vuforia = ClassFactory.getInstance().createVuforia(parameters);
-
         // Load the data sets for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
-        VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
-
         VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
         stoneTarget.setName("Stone Target");
         VuforiaTrackable blueRearBridge = targetsSkyStone.get(1);
@@ -441,7 +441,8 @@ public abstract class HowlersAutoFunction extends LinearOpMode {
         // Tap the preview window to receive a fresh image.
 
         targetsSkyStone.activate();
-        while (!isStopRequested()) {
+        runtime.reset();
+        while (!isStopRequested() && !targetVisible && (runtime.seconds() < 2)) {
 
             // check all the trackable targets to see which one (if any) is visible.
             targetVisible = false;
@@ -451,6 +452,7 @@ public abstract class HowlersAutoFunction extends LinearOpMode {
 
                     if (trackable.getName().equals("Stone Target")) {
                         telemetry.addLine("Stone Target Is Visible");
+                        return true;
                     }
 
                     targetVisible = true;
@@ -466,24 +468,36 @@ public abstract class HowlersAutoFunction extends LinearOpMode {
                 }
             }
 
-            // Provide feedback as to where the robot is located (if we know).
-            runtime.reset();
-            while(opModeIsActive() && (runtime.seconds() < 2.00)) {
-
-            }
-            String positionSkystone = "";
-            if (targetVisible) {
-                telemetry.addLine("targetVisible");
-                telemetry.update();
-                returnValue = true;
-                return returnValue;
-            } else {
-                telemetry.addLine("targetNotVisible");
-                telemetry.update();
-                returnValue = false;
-                return returnValue;
-            }
+            // Provide feedback as to where the robot is located (if we know)
         }
-        return true;
+        targetsSkyStone.deactivate();
+        return targetVisible;
+    }
+
+    public void pickUpSkystone(double speed, String stonePos, boolean firstStone) {    }
+
+    public void park(double speed, double shooterRotations, double leftRotations, double rightRotations) {
+
+
+        if(opModeIsActive()) {
+            int footLongTarget = robot.footLong.getCurrentPosition() + (int)((shooterRotations) * (1497.325));
+
+            robot.footLong.setTargetPosition(footLongTarget);
+
+            while(opModeIsActive() && robot.footLong.isBusy())
+            {
+                telemetry.addLine("beep boop");
+                telemetry.update();
+            }
+
+            robot.footLong.setPower(0);
+
+            robot.footLong.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+    }
+
+    public void robotWait(double seconds) {
+        runtime.reset();
+        while (!isStopRequested() && (runtime.seconds() < seconds)) {}
     }
 }
