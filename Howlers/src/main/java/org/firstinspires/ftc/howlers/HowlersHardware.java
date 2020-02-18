@@ -15,6 +15,7 @@ public class HowlersHardware {
     public DcMotor liftClaw = null;
     public DcMotor footLong = null;
     public Servo clawServo = null;
+    public Servo capstone = null;
 
 
     HardwareMap hwMap           =  null;
@@ -26,7 +27,6 @@ public class HowlersHardware {
 
     public void init(HardwareMap ahwMap){
         hwMap = ahwMap;
-
         rightFront = hwMap.get(DcMotor.class, "rightFront");
         rightBack = hwMap.get(DcMotor.class, "rightBack");
         leftBack = hwMap.get(DcMotor.class, "leftBack");
@@ -36,6 +36,8 @@ public class HowlersHardware {
         clawServo = hwMap.get(Servo.class, "clawServo");
 
         footLong = hwMap.get(DcMotor.class, "footLong");
+
+        capstone = hwMap.get(Servo.class, "capstone");
 
 
         //drive train

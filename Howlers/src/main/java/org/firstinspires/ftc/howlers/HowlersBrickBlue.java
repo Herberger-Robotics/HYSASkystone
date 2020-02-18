@@ -43,21 +43,48 @@ public class HowlersBrickBlue extends HowlersAutoFunction {
                 robot.clawServo.setPosition(0.2);//close
                 robotWait(0.5);
                 encoderDrive(speed,-0.35,-0.35);//backwards
-                encoderStrafe(speed,3.5,-3.5);//left
-                encoderStrafe(speed,-0.2,0.2);//right
+                encoderStrafe(speed,1.9,-1.9);//left 52~ in
+                sleep(500);
+                robot.clawServo.setPosition(0.5);
+                sleep(500);
+                encoderDrive(speed,-0.2,-0.2);
+                sleep(500);
+                robot.clawServo.setPosition(0.2);
+                sleep(500);
+                encoderStrafe(speed,-2.9,2.9);
+                sleep(500);
+                robot.clawServo.setPosition(0.5);
+                sleep(500);
+               // encoderTurn(speed,-0.1,0.1);
+                encoderDrive(speed,0.6,0.6);
+                robot.clawServo.setPosition(0.2);
+                encoderDrive(speed,-0.35,-0.35);
+                encoderStrafe(speed,2.8,-2.8);
+                robot.clawServo.setPosition(0.5);
+                encoderStrafe(speed,0.5,-0.5);
+
+
+
+
+                /*encoderStrafe(speed,-0.2,0.2);//right
                 encoderLift(speed, -1);//raise
                 encoderDrive(speed,0.45,0.45);//forwards
                 robot.clawServo.setPosition(0.5);//open
                 robotWait(0.5);
-                encoderDrive(speed,-0.1,-0.1);//backwards
+                encoderDrive(speed,-0.3,-0.3);//backwards
                 encoderLift(speed,1);//lower
-                encoderStrafe(speed,-5,5);//right
+                encoderStrafe(speed,-1,1);//right
+                robotWait(0.2);
+                robot.clawServo.setPosition(0.2);
+                robotWait(0.3);
+                encoderStrafe(speed,-2,2);
+                robot.clawServo.setPosition(0.5);
                 encoderStrafe(speed,0.3,-0.3);//left
                 encoderDrive(speed,1,1);
                 robot.clawServo.setPosition(0.2);
                 robotWait(0.5);
                 encoderDrive(speed,-1,-1);
-                encoderStrafe(speed,0.4,-0.3);//left
+                encoderStrafe(speed,0.4,-0.3);//left*/
             }
             case "center": {
 

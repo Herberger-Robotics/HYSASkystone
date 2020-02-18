@@ -24,15 +24,10 @@ public class HowlersAutoBuildplateBlueWall extends HowlersAutoFunction {
         encoderDrive(speed, 0.3, 0.3);//forwards
         encoderLift(speed,1);//lower
         encoderDrive(speed,-1.3,-1.3);//backwards
-        encoderDrive(speed,-0.7,-0.5);//backwards
-        encoderDrive(speed,0.2,0.2);//forwards
-        encoderStrafe(speed,-1,1);//right
-        encoderStrafe(speed,-0.7,0.7);//right
-        encoderDrive(speed,1.3,1.3); //forwards
-        encoderStrafe(speed,1,-1); //left
-        encoderLift(speed,-1);//raise
-        encoderDrive(speed,-0.5,-0.5);//backwards
-        encoderLift(speed,1);//lower
-        encoderDrive(speed,-1,-1);//backwards
+        encoderLift(speed,-1);
+        encoderStrafe(speed,-1,1); // right
+        encoderLift(speed,1);
+        encoderStrafe(speed,-1,1); // right
+
     }
 }

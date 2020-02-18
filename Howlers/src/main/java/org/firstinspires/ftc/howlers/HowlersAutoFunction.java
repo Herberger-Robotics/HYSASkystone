@@ -500,4 +500,15 @@ public abstract class HowlersAutoFunction extends LinearOpMode {
         runtime.reset();
         while (!isStopRequested() && (runtime.seconds() < seconds)) {}
     }
+    public void ServoMove(double position){
+        robot.clawServo.setPosition(position);
+
+
+    }
+
+
+
+
+
+
 }

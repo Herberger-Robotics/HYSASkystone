@@ -301,6 +301,7 @@ public class vuforiaBruhV2 extends LinearOpMode {
                         telemetry.addLine("Stone Target Is Visible");
 
 
+
                     }
 
                     targetVisible = true;

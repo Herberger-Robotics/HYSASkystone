@@ -68,7 +68,7 @@ public class HowlersDrive extends OpMode
         robot.leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.footLong.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-
+        robot.capstone.setPosition(0.2);
 
     }
 
@@ -94,6 +94,7 @@ public class HowlersDrive extends OpMode
     public void loop() {
         Claw();
         Park();
+        capstonePoop();
         //Strafe(1);
 
         double speed = 0.25 * gear;
@@ -150,7 +151,7 @@ public class HowlersDrive extends OpMode
             robot.clawServo.setPosition(0.5);
 
         } else if (gamepad2.b) {
-            robot.clawServo.setPosition(0.2);
+            robot.clawServo.setPosition(0.1);
         }
 
     }
@@ -163,6 +164,25 @@ public class HowlersDrive extends OpMode
         } else {
             robot.footLong.setPower(0);
         }
+    }
+
+    public void capstonePoop(){
+        int yuck = 0;
+
+        if (gamepad1.dpad_down){
+            yuck++;
+        }
+
+        if(yuck >= 2){
+            robot.capstone.setPosition(0.7);
+        }
+
+        if(gamepad1.dpad_up){
+            robot.capstone.setPosition(0.2);
+            yuck = 0;
+        }
+
+
     }
 
     /*
