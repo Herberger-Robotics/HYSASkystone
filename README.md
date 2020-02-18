@@ -12,8 +12,8 @@ git fetch upstream
 
 git checkout master
 
-<<<<<<< HEAD
 git merge upstream/master
+
 =======
 ## Downloading the Project
 If you are an Android Studio programmer, there are several ways to download this repo.  Note that if you use the Blocks or OnBot Java Tool to program your robot, then you do not need to download this repository.
