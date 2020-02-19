@@ -167,19 +167,12 @@ public class HowlersDrive extends OpMode
     }
 
     public void capstonePoop(){
-        int yuck = 0;
-
-        if (gamepad1.dpad_down){
-            yuck++;
-        }
-
-        if(yuck >= 2){
+        if (gamepad1.dpad_down) {
             robot.capstone.setPosition(0.7);
         }
 
         if(gamepad1.dpad_up){
             robot.capstone.setPosition(0.2);
-            yuck = 0;
         }
 
 
