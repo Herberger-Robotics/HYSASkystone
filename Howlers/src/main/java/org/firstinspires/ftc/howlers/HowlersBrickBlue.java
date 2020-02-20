@@ -50,15 +50,7 @@ public class HowlersBrickBlue extends HowlersAutoFunction {
                 sleep(200);
                 robot.clawServo.setPosition(0.5); // open
                 sleep(200);
-                //encoderDrive(speed,-0.1,-0.1);
-              //  sleep(500);
-                //robot.clawServo.setPosition(0.2);
-              //  sleep(500);
                 encoderStrafe(speed,-2.7,2.7);
-              //  sleep(500);
-                //robot.clawServo.setPosition(0.5);
-             //   sleep(500);
-               // encoderTurn(speed,-0.1,0.1);
                 encoderDrive(0.2,0.76,0.76); // forward
                 sleep(200);
                 robot.clawServo.setPosition(0.2);
@@ -84,14 +76,7 @@ public class HowlersBrickBlue extends HowlersAutoFunction {
                 robot.clawServo.setPosition(0.5); // open
                 sleep(500);
                 encoderDrive(speed,-0.1,-0.1);
-                //  sleep(500);
-                //robot.clawServo.setPosition(0.2);
-                //  sleep(500);
                 encoderStrafe(speed,-2.9,2.9);
-                //  sleep(500);
-                //robot.clawServo.setPosition(0.5);
-                //   sleep(500);
-                // encoderTurn(speed,-0.1,0.1);
                 encoderDrive(0.2,0.77,0.77); // forward
                 sleep(200);
                 robot.clawServo.setPosition(0.2);
