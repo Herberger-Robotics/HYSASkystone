@@ -64,7 +64,7 @@ public class HowlersBrickRed extends HowlersAutoFunction {
                 break;
             }
             case "center": {
-                //encoderStrafe(speed,-0.15,0.15); //right
+                encoderStrafe(speed,0.15,-0.15); //left
                 encoderDrive(0.2,0.6,0.6);//forwards
                 robot.clawServo.setPosition(0.2);//close
                 sleep(200);
