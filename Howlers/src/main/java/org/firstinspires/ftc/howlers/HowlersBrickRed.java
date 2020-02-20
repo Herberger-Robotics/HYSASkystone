@@ -38,7 +38,7 @@ public class HowlersBrickRed extends HowlersAutoFunction {
         telemetry.update();
         switch(stonePos) {
             case "left": {
-                encoderStrafe(speed,-0.15,-0.15); //left
+                encoderStrafe(speed,0.15,-0.15); //left
                 encoderDrive(0.2,0.55,0.55);//forwards
                 sleep(200);
                 robot.clawServo.setPosition(0.2);//close
@@ -48,12 +48,12 @@ public class HowlersBrickRed extends HowlersAutoFunction {
                 sleep(200);
                 robot.clawServo.setPosition(0.5); // open
                 sleep(200);
-                encoderStrafe(speed,2.7,-2.7);//left
+                encoderStrafe(speed,2.8,-2.8);//left
                 encoderDrive(0.2,0.76,0.76); // forward
                 sleep(200);
                 robot.clawServo.setPosition(0.2);
                 sleep(200);
-                encoderDrive(speed,-0.42,-0.42);
+                encoderDrive(speed,-0.5,-0.5);//backwards
                 encoderStrafe(speed,-2.8,2.8);//right
                 sleep(200);
                 robot.clawServo.setPosition(0.5);
@@ -64,7 +64,7 @@ public class HowlersBrickRed extends HowlersAutoFunction {
                 break;
             }
             case "center": {
-                encoderStrafe(speed,-0.15,0.15); //right
+                //encoderStrafe(speed,-0.15,0.15); //right
                 encoderDrive(0.2,0.6,0.6);//forwards
                 robot.clawServo.setPosition(0.2);//close
                 sleep(200);
