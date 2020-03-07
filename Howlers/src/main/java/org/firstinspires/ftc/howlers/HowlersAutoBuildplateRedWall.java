@@ -3,7 +3,7 @@ package org.firstinspires.ftc.howlers;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="BuildplateBlueWall")
+@Autonomous(name="BuildplateRedWall")
 public class HowlersAutoBuildplateRedWall extends HowlersAutoFunction {
 
     HowlersHardware robot = new HowlersHardware();

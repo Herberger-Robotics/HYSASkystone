@@ -29,12 +29,14 @@
 
 package org.firstinspires.ftc.howlers;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.configuration.annotations.DigitalIoDeviceType;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-
+@Disabled
 @TeleOp(name="EncoderTESTING", group="Iterative Opmode")
 
 public class HowlersEncoderTesting extends OpMode

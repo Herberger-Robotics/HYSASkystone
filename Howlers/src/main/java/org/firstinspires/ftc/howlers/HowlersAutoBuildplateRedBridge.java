@@ -44,7 +44,7 @@ public class HowlersAutoBuildplateRedBridge extends HowlersAutoFunction {
         encoderLift(speed,-1); // raise
         encoderStrafe(speed,1.1,-1.1);//left
         encoderLift(speed,1);
-        encoderDrive(speed,0.7,0.7);
-        encoderStrafe(speed,0.6,-0.6);//left
+        encoderDrive(speed,0.9,0.9);
+        encoderStrafe(speed,0.8,-0.8);//left
     }
 }
